@@ -67,9 +67,9 @@ function Category() {
                             <h2 className='mt-4 mb-6 text-3xl font-medium text-gray-700'>Select From Our Categories</h2>
                             <p className='text-gray-500 tracking-wide font-medium'>Choose from luxurious huts, cozy hotel rooms, beautiful home stays, wonderful lodges, or serene countryside resort estates for your perfect vacation.</p>
                         </div>
-                        <div className='md:flex md:flex-wrap md:gap-10 md:justify-center'>
+                        <div className='md:flex md:flex-wrap md:gap-10 md:justify-center md:mt-10'>
                             {allPropertyTypes.map((item, index) =>
-                                <div className='md:w-5/12  lg:w-3/12'>
+                                <div className='mb-5 md:mb-0 md:w-5/12  lg:w-3/12'>
                                     <Card
                                         key={index}
                                         propertyIcon={icons[item?.property_type]}
