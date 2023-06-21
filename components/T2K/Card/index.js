@@ -3,17 +3,7 @@ import React from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowRight,
-  faHotel
 } from "@fortawesome/free-solid-svg-icons";
-import EmojiTransportationIcon from '@mui/icons-material/EmojiTransportation';
-import HomeWorkOutlinedIcon from '@mui/icons-material/HomeWorkOutlined';
-import CottageOutlinedIcon from '@mui/icons-material/CottageOutlined';
-import GiteOutlinedIcon from '@mui/icons-material/GiteOutlined';
-import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
-import ApartmentOutlinedIcon from '@mui/icons-material/ApartmentOutlined';
-import HouseSidingOutlinedIcon from '@mui/icons-material/HouseSidingOutlined';
-
-
 
 function Card({ propertyIcon, propertyType, propertyDescription }) {
 
