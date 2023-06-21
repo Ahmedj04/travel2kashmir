@@ -15,6 +15,7 @@ function Header() {
             <ul className='hidden lg:block lg:flex lg:gap-10'>
               <li className='ml-32 text-base font-medium text-gray-700 hover:text-blue-600 cursor-pointer'><a href='/'>Home</a></li>
               <li className='font-medium text-gray-700 hover:text-blue-600 hover:text-blue-800 cursor-pointer'>Listings</li>
+              <li className='font-medium text-gray-700 hover:text-blue-600 hover:text-blue-800 cursor-pointer'>Places</li>
               
             </ul>
             <i className='hidden lg:block'><AccountCircleIcon fontSize='large'/></i>
