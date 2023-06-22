@@ -4,10 +4,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faCircleArrowRight,
 } from "@fortawesome/free-solid-svg-icons";
+
 import CategoryCard from '../Cards/CategoryCard';
 
-
-import EmojiTransportationIcon from '@mui/icons-material/EmojiTransportation';
 import HomeWorkOutlinedIcon from '@mui/icons-material/HomeWorkOutlined';
 import CottageOutlinedIcon from '@mui/icons-material/CottageOutlined';
 import GiteOutlinedIcon from '@mui/icons-material/GiteOutlined';
@@ -76,16 +75,10 @@ function Category() {
                                         propertyDescription={item?.description}
                                     />
                                 </div>
-
                             )}
                         </div>
-
-
                     </div>
-
-
                 </div>
-
             </div>
         </section>
     )
