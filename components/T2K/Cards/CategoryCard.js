@@ -3,22 +3,12 @@ import React from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowRight,
-  faHotel
 } from "@fortawesome/free-solid-svg-icons";
-import EmojiTransportationIcon from '@mui/icons-material/EmojiTransportation';
-import HomeWorkOutlinedIcon from '@mui/icons-material/HomeWorkOutlined';
-import CottageOutlinedIcon from '@mui/icons-material/CottageOutlined';
-import GiteOutlinedIcon from '@mui/icons-material/GiteOutlined';
-import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
-import ApartmentOutlinedIcon from '@mui/icons-material/ApartmentOutlined';
-import HouseSidingOutlinedIcon from '@mui/icons-material/HouseSidingOutlined';
-
-
 
 function Card({ propertyIcon, propertyType, propertyDescription }) {
 
   return (
-    <div className='border rounded-xl md:h-full  md:hover:shadow-2xl'>
+    <div className='border rounded-xl md:h-full  md:hover:shadow-2xl md:hover:scale-105 md:hover:transition-all'>
       <div className='pb-8'>
         <div className='p-8'>
           <span>{propertyIcon}</span>
