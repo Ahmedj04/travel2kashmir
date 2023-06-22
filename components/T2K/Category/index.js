@@ -3,7 +3,6 @@ import axios from 'axios';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faCircleArrowRight,
-    faHotel
 } from "@fortawesome/free-solid-svg-icons";
 import Card from '../Card';
 
