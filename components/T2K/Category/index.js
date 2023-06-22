@@ -5,7 +5,7 @@ import {
     faCircleArrowRight,
     faHotel
 } from "@fortawesome/free-solid-svg-icons";
-import Card from '../Card';
+import CategoryCard from '../Cards/CategoryCard';
 
 
 import EmojiTransportationIcon from '@mui/icons-material/EmojiTransportation';
@@ -70,7 +70,7 @@ function Category() {
                         <div className='md:flex md:flex-wrap md:gap-10 md:justify-center'>
                             {allPropertyTypes.map((item, index) =>
                                 <div className='md:w-5/12  lg:w-3/12'>
-                                    <Card
+                                    <CategoryCard
                                         key={index}
                                         propertyIcon={icons[item?.property_type]}
                                         propertyType={item?.property_type}
