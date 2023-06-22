@@ -1,43 +1,116 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import Capsule from './Capsule';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-    faCircleArrowRight,
-    faHotel
+  faCircleArrowRight,
+  faHotel
 } from "@fortawesome/free-solid-svg-icons";
+import PropertyCard from '../Cards/PropertyCard';
 
 
 function index() {
+  const [allFullProperties, setAllFullProperties] = useState([]);
+  const [onlyBasicDetails, setOnlyBasicDetails] = useState([]);
+  const [allCities, setAllCities] = useState(['city']);
+  const [selectedCity, setSelectedCity] = useState()
+  function fetchAllProperties() {
+    const url = `/api/all_properties_data`;
+    axios.get(url).then((response) => {
+      setAllFullProperties(response.data)
+      const room_data=response.data.map(item=>(
+        {"property_id":JSON.parse(item.property_data).property_id,
+        ...JSON.parse(item.room_data)}))
+      console.log(room_data)
+
+    // under development
+      // function room_price(room){
+    //     let propety_id=room.property_id;
+    //     console.log("1")
+    //     let property_rooms;
+       
+    //     {
+    //       property_rooms=room?.rooms
+    //       console.log(property_rooms.map((item)=>(item?.unconditional_rates)))
+    //       console.log("2")
+    //     }
+    //     else{
+
+    //       }
+        
+        
+    //   }
+    //  room_data.map(room=>room_price(room))
+      
+      setOnlyBasicDetails(response.data.map(property => (JSON.parse(property.property_data))))
+      let property_data = response.data.map(property => (JSON.parse(property.property_data)))
+      // unique list of cities having properties
+      let all_cities = [...new Set(property_data.map((item) => item?.address[0]?.address_city))];
+      setAllCities(all_cities)
+      setSelectedCity(all_cities[0])
+
+    }).catch((error) => {
+      console.log('error in fetching data of all properties')
+    })
+  }
+  useEffect(() => { fetchAllProperties() }, [])
+
   return (
-    <section className='border border-t-2'>
-    <div className='py-10'>
-        <div className='py-8'>
+    <>
+    {/* location selector  */}
+      <section >
+        <div >
+          <div className='py-4'>
             <div className='px-3 text-center'>
-                <div className='text-center mb-6'>
-                    <span className='bg-blue-100 pr-2 py-2 rounded-2xl'>
-                        <span><FontAwesomeIcon icon={faCircleArrowRight} size="2xl" style={{ color: "#2912d3", }} /></span>
-                        <span className='text-blue-800 text-xl font-medium pl-3 tracking-wide'>Properties</span>
-                    </span>
-                    <h2 className='mt-4 mb-6 text-3xl font-medium text-gray-700'>Explore Properties</h2>
-                    <p className='text-gray-500 tracking-wide font-medium'>
-                      Explore our wide range of properties through out kashmir.
-                    </p>
-                </div>
-                <div className='md:flex md:flex-wrap md:gap-10 md:justify-start lg:flex lg:flex-wrap
-                lg:justify-normal lg:gap-2 lg:items-center'>
-                <Capsule title={'srinagar'} action={(e)=>alert(e)}/>
-                <Capsule title={'srinagar'} action={(e)=>alert(e)}/>
-                <Capsule title={'srinagar'} action={(e)=>alert(e)}/>
-                </div>
+              <div className='text-center mb-6'>
+                <span className='bg-blue-100 pr-2 py-2 rounded-2xl'>
+                  <span><FontAwesomeIcon icon={faCircleArrowRight} size="2xl" style={{ color: "#2912d3", }} /></span>
+                  <span className='text-blue-800 text-xl font-medium pl-3 tracking-wide'>Properties</span>
+                </span>
+                <h2 className='mt-4 mb-6 text-3xl font-medium text-gray-700'>Explore Properties</h2>
+                <p className='text-gray-500 tracking-wide font-medium'>
+                  Explore our wide range of properties through out kashmir.
+                </p>
+              </div>
+
+              <div className='md:flex md:flex-wrap md:gap-10 md:justify-start lg:flex lg:flex-wrap
+                lg:justify-normal lg:gap-2 lg:items-center max-w-fit lg:ml-4'>
+
+                {allCities?.map((city, index) => {
+                  return (
+                    <Capsule title={city} action={(e) => setSelectedCity(e)} selected={selectedCity === city} />
+                  )
+                })}
+
+
+              </div>
 
 
             </div>
 
 
-        </div>
+          </div>
 
-    </div>
-</section>
+        </div>
+      </section>
+
+      {/* properties based on location  */}
+      <section className='mb-4'>
+        <div className='py-1'>
+          <div className='px-3 text-center'>
+            <div className='md:flex md:flex-wrap md:gap-10 md:justify-center md:mt-10
+              lg:flex lg:flex-wrap lg:gap-4 lg:justify-center lg:mt-4'>
+
+              {onlyBasicDetails?.map((hotel, idx) =>
+              (hotel?.address[0].address_city === selectedCity ?
+                <div className='lg:w-3/12' ><PropertyCard hotel={hotel} /></div> :
+                <></>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section >
+    </>
   )
 }
 
