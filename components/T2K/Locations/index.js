@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Capsule from './Capsule';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Loader from '../Loaders/Loader';
 import {
   faCircleArrowRight,
   faHotel
@@ -11,6 +12,7 @@ import PropertyCard from '../Cards/PropertyCard';
 
 function index() {
   const [allFullProperties, setAllFullProperties] = useState([]);
+  const [showUI, setShowUI] = useState(0);
   const [onlyBasicDetails, setOnlyBasicDetails] = useState([]);
   const [allCities, setAllCities] = useState(['city']);
   const [selectedCity, setSelectedCity] = useState()
@@ -73,16 +75,16 @@ function index() {
         let all_cities = [...new Set(property_data.map((item) => item?.address[0]?.address_city))];
         setAllCities(all_cities)
         setSelectedCity(all_cities[0])
-
+        setShowUI(1);
       }
       )
       .catch((error) => {
         console.log('error in fetching data of all properties')
       })
   }
-  useEffect(() => { 
+  useEffect(() => {
     fetchAllProperties()
-   }, [])
+  }, [])
 
   return (
     <>
@@ -103,13 +105,22 @@ function index() {
               </div>
 
               <div className='md:flex md:flex-wrap md:gap-10 md:justify-start lg:flex lg:flex-wrap
-                lg:justify-normal lg:gap-2 lg:items-center max-w-fit lg:ml-4'>
+                lg:justify-normal lg:gap-2 lg:items-center max-w-fit lg:ml-4 cursor-pointer'>
 
-                {allCities?.map((city, index) => {
+                {showUI === 0 ? <>
+                  <Loader size={`w-24 h-8 py-3 mb-5 rounded-3xl`} />
+                  <Loader size={`w-24 h-8 py-3 mb-5 rounded-3xl`} />
+                  <Loader size={`w-24 h-8 py-3 mb-5 rounded-3xl`} />
+                  <Loader size={`w-24 h-8 py-3 mb-5 rounded-3xl`} />
+                </> : <>{allCities?.map((city, index) => {
                   return (
-                    <Capsule title={city} action={(e) => setSelectedCity(e)} selected={selectedCity === city} />
+                    <React.Fragment key={index}>
+                      <Capsule title={city} action={(e) => setSelectedCity(e)} selected={selectedCity === city} />
+                    </React.Fragment>
+
                   )
-                })}
+                })}</>}
+
 
 
               </div>
@@ -129,17 +140,22 @@ function index() {
           <div className='px-3 text-center'>
             <div className='md:flex md:flex-wrap md:gap-10 md:justify-center md:mt-10
               lg:flex lg:flex-wrap lg:gap-4 lg:justify-center lg:mt-4'>
+              {showUI === 0 ? <>
+                <Loader size={`w-3/12 h-40 py-3 mb-5 `} />
+                <Loader size={`w-3/12 h-40 py-3 mb-5 `} />
+                <Loader size={`w-3/12 h-40 py-3 mb-5 `} />
 
-              {onlyBasicDetails?.map((hotel, idx) =>
-              (hotel?.address[0].address_city === selectedCity ?
-                <div className='lg:w-3/12' >
-                  <PropertyCard hotel={hotel} price={hotelRoomPrice.filter(price=>price.property_id===hotel.property_id)[0]}/>
-                  </div> :
+              </> : <>
+                {onlyBasicDetails?.map((hotel, idx) =>
+                (hotel?.address[0].address_city === selectedCity ?
+                  <div key={idx} className='lg:w-3/12' >
+                    <PropertyCard hotel={hotel} price={hotelRoomPrice.filter(price => price.property_id === hotel.property_id)[0]} />
+                  </div> : <></>
+                ))}
+              </>}
 
-                <></>
-              ))}
             </div>
-            
+
           </div>
         </div>
       </section >

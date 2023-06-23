@@ -15,10 +15,12 @@ import ApartmentOutlinedIcon from '@mui/icons-material/ApartmentOutlined';
 import HouseSidingOutlinedIcon from '@mui/icons-material/HouseSidingOutlined';
 import BungalowOutlinedIcon from '@mui/icons-material/BungalowOutlined';
 import HolidayVillageOutlinedIcon from '@mui/icons-material/HolidayVillageOutlined';
+import Loader from '../Loaders/Loader';
 
 function Category() {
 
     const [allPropertyTypes, setPropertyTypes] = useState([]);
+    const [categoryLoader, setCategoryLoader] = useState(0);
 
     useEffect(() => {
         getPropertyTypes()
@@ -31,6 +33,7 @@ function Category() {
             .then((response) => {
                 setPropertyTypes(response.data)
                 console.log("property categories loaded succesfully")
+                setCategoryLoader(1);
                 console.log(allPropertyTypes)
 
             })
@@ -65,17 +68,22 @@ function Category() {
                             <h2 className='mt-4 mb-6 text-3xl font-medium text-gray-700'>Select From Our Categories</h2>
                             <p className='text-gray-500 tracking-wide font-medium'>Choose from luxurious huts, cozy hotel rooms, beautiful home stays, wonderful lodges, or serene countryside resort estates for your perfect vacation.</p>
                         </div>
+
+
                         <div className='md:flex md:flex-wrap md:gap-10 md:justify-center md:mt-10'>
-                            {allPropertyTypes.map((item, index) =>
-                                <div className='md:w-5/12  lg:w-3/12'>
-                                    <CategoryCard
-                                        key={index}
-                                        propertyIcon={icons[item?.property_type]}
-                                        propertyType={item?.property_type}
-                                        propertyDescription={item?.description}
-                                    />
-                                </div>
-                            )}
+                            {categoryLoader === 0 ?
+                                <> <Loader size={`w-3/12 h-40 py-3 mb-5 `} /><Loader size={`w-3/12 h-40 py-3 mb-5 `} /><Loader size={`w-3/12 h-40 py-3 mb-5 `} /></>
+                                : <>{allPropertyTypes.map((item, index) =>
+                                    <div className='md:w-5/12  lg:w-3/12'>
+                                        <CategoryCard
+                                            key={index}
+                                            propertyIcon={icons[item?.property_type]}
+                                            propertyType={item?.property_type}
+                                            propertyDescription={item?.description}
+                                        />
+                                    </div>
+                                )}</>}
+
                         </div>
                     </div>
                 </div>

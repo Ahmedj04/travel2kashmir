@@ -15,7 +15,7 @@ function Card({ propertyIcon, propertyType, propertyDescription }) {
           <h5 className='text-xl font-semibold text-gray-700 mt-5 mb-2 capitalize'>{propertyType}</h5>
           <p className='text-gray-500 tracking-wide font-normal'>{propertyDescription?.substring(0,100)}</p>
         </div>
-        <div>
+        <div className='cursor-pointer'>
           <a className='p-9 font-semibold' style={{ color: "#2912d3", }}>Read More &nbsp;<FontAwesomeIcon icon={faArrowRight} /> </a>
         </div>
 

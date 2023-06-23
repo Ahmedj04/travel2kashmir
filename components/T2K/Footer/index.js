@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Modal from '../Modals/modal';
+import Modal from '../Modals/Modal';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
@@ -12,6 +12,7 @@ import PolicyOutlinedIcon from '@mui/icons-material/PolicyOutlined';
 import GavelOutlinedIcon from '@mui/icons-material/GavelOutlined';
 import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
 import ContactUsModal from '../Modals/ContactUsModal';
+import Link from 'next/link';
 
 
 function Footer() {
@@ -34,7 +35,7 @@ function Footer() {
                                     <li><FacebookIcon /></li>
                                     <li><TwitterIcon /></li>
                                     <li><LinkedInIcon /></li>
-                                    <li><InstagramIcon /></li>
+                                    <li><Link href="https://instagram.com/travel2kashmirr?igshid=MzNlNGNkZWQ4Mg=="><InstagramIcon /></Link></li>
 
                                 </ul>
                             </div>
@@ -46,13 +47,13 @@ function Footer() {
                                         <li className='pb-5'>
                                             <div className='flex gap-3'>
                                                 <LocalPhoneIcon />
-                                                <p>123-1221--23323</p>
+                                                <p>+91-9632911213</p>
                                             </div>
                                         </li>
                                         <li className='pb-5'>
                                             <div className='flex gap-3'>
                                                 <EmailIcon />
-                                                <p>Example@mail.com</p>
+                                                <p>techworks@travel2kashmir.com</p>
                                             </div>
                                         </li>
                                         <li className='pb-5'>
@@ -138,8 +139,9 @@ function Footer() {
                     setShowModal={(e) => setShowModalPrivacy(e)}
                 />
             </div>
+
         </section>
     )
 }
 
-export default Footer
+export default Footer;
