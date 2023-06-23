@@ -14,50 +14,79 @@ function index() {
   const [onlyBasicDetails, setOnlyBasicDetails] = useState([]);
   const [allCities, setAllCities] = useState(['city']);
   const [selectedCity, setSelectedCity] = useState()
+  const [hotelRoomPrice, setHotelRoomPrice] = useState({})
+  function room_price(all_property) {
+    let property_id = all_property.property_id;
+    let temp_rates = [];
+
+    if (Object.keys(all_property).includes('rooms') === false) {
+      return ({
+        property_id, price: 0, currency: 'none'
+      })
+    }
+
+    all_property.rooms.map(room => {
+
+      if (Object.keys(room).includes("unconditional_rates") === false) {
+        temp_rates.push({
+          property_id, price: 0, currency: "none"
+        })
+      }
+      else {
+        temp_rates.push({
+          property_id, "price": room.unconditional_rates[0].baserate_amount,
+          "currency": room.unconditional_rates[0].baserate_currency
+        })
+      }
+    })
+
+    if (temp_rates.length === 0 || temp_rates.length === 1) {
+      return (temp_rates[0])
+    }
+
+    let min = temp_rates[0].price;
+    let final = { "property_id": room.property_id, "price": temp_rates[0].price, "currency": temp_rates[0].currency }
+    for (let i = 0; i < temp_rates.length; i++) {
+      if (min > temp_rates[i].price) {
+        min = temp_rates[i].price
+        final = { "property_id": room.property_id, "price": temp_rates[i].price, "currency": temp_rates[i].currency }
+      }
+    }
+    return final;
+  }
+
+
   function fetchAllProperties() {
     const url = `/api/all_properties_data`;
-    axios.get(url).then((response) => {
-      setAllFullProperties(response.data)
-      const room_data=response.data.map(item=>(
-        {"property_id":JSON.parse(item.property_data).property_id,
-        ...JSON.parse(item.room_data)}))
-      console.log(room_data)
+    axios.get(url)
+      .then((response) => {
+        setAllFullProperties(response.data)
+        const all_property_room_data = response.data.map(item => (
+          {
+            "property_id": JSON.parse(item.property_data).property_id,
+            ...JSON.parse(item.room_data)
+          }))
+        setHotelRoomPrice(all_property_room_data.map(all_property => room_price(all_property)))
+        setOnlyBasicDetails(response.data.map(property => (JSON.parse(property.property_data))))
+        let property_data = response.data.map(property => (JSON.parse(property.property_data)))
+        // unique list of cities having properties
+        let all_cities = [...new Set(property_data.map((item) => item?.address[0]?.address_city))];
+        setAllCities(all_cities)
+        setSelectedCity(all_cities[0])
 
-    // under development
-      // function room_price(room){
-    //     let propety_id=room.property_id;
-    //     console.log("1")
-    //     let property_rooms;
-       
-    //     {
-    //       property_rooms=room?.rooms
-    //       console.log(property_rooms.map((item)=>(item?.unconditional_rates)))
-    //       console.log("2")
-    //     }
-    //     else{
-
-    //       }
-        
-        
-    //   }
-    //  room_data.map(room=>room_price(room))
-      
-      setOnlyBasicDetails(response.data.map(property => (JSON.parse(property.property_data))))
-      let property_data = response.data.map(property => (JSON.parse(property.property_data)))
-      // unique list of cities having properties
-      let all_cities = [...new Set(property_data.map((item) => item?.address[0]?.address_city))];
-      setAllCities(all_cities)
-      setSelectedCity(all_cities[0])
-
-    }).catch((error) => {
-      console.log('error in fetching data of all properties')
-    })
+      }
+      )
+      .catch((error) => {
+        console.log('error in fetching data of all properties')
+      })
   }
-  useEffect(() => { fetchAllProperties() }, [])
+  useEffect(() => { 
+    fetchAllProperties()
+   }, [])
 
   return (
     <>
-    {/* location selector  */}
+      {/* location selector  */}
       <section >
         <div >
           <div className='py-4'>
@@ -103,10 +132,14 @@ function index() {
 
               {onlyBasicDetails?.map((hotel, idx) =>
               (hotel?.address[0].address_city === selectedCity ?
-                <div className='lg:w-3/12' ><PropertyCard hotel={hotel} /></div> :
+                <div className='lg:w-3/12' >
+                  <PropertyCard hotel={hotel} price={hotelRoomPrice.filter(price=>price.property_id===hotel.property_id)[0]}/>
+                  </div> :
+
                 <></>
               ))}
             </div>
+            
           </div>
         </div>
       </section >
