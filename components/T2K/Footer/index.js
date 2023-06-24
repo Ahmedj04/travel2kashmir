@@ -13,6 +13,7 @@ import GavelOutlinedIcon from '@mui/icons-material/GavelOutlined';
 import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
 import ContactUsModal from '../Modals/ContactUsModal';
 import Link from 'next/link';
+import Router from 'next/router';
 
 
 function Footer() {
@@ -25,14 +26,14 @@ function Footer() {
         <section>
             <div className='bg-slate-900 text-white'>
 
-                <div className='py-14'>
+                <div className='pb-14'>
                     <div className='px-3'>
                         <div>
-                            <div className='pt-12 px-3'>
-                                <a className='flex h-10 mb-6'><img src='/t2k.png'></img>&nbsp;<h2 className='flex items-center text-xl'>Travel To Kashmir</h2></a>
+                            <div className='pt-10 px-3'>
+                                <a className='flex h-10 mb-6'><h2 className='flex items-center text-3xl'>Travel2Kashmir</h2></a>
                                 <p className='mb-6'>Discover the enchanting beauty of Kashmir with Travel 2 Kashmir, a dynamic startup empowering the region's tourism industry through immersive experiences and responsible travel practices. Experience the warmth of local hospitality and explore the hidden gems of this breathtaking destination with us.</p>
                                 <ul className='text-white flex gap-5'>
-                                    <li><FacebookIcon /></li>
+                                    <li><Link href="https://www.facebook.com/travel2kashmir/"><FacebookIcon /></Link></li>
                                     <li><TwitterIcon /></li>
                                     <li><LinkedInIcon /></li>
                                     <li><Link href="https://instagram.com/travel2kashmirr?igshid=MzNlNGNkZWQ4Mg=="><InstagramIcon /></Link></li>
@@ -41,6 +42,8 @@ function Footer() {
                             </div>
 
                             <div className='md:flex md:gap-40'>
+                            <div className='flex items-center justify-center w-auto h-auto '>
+                                <img  src='/t2k.png'/></div>
                                 <div className='pt-12 px-3'>
                                     <h2 className='pb-3 text-2xl font-bold'>Contact</h2>
                                     <ul className=''>
@@ -89,7 +92,10 @@ function Footer() {
                                         <li className='pb-5'>
                                             <div className='flex gap-3'>
                                                 <ExitToAppOutlinedIcon />
+                                                <Link href="https://hangul-release.vercel.app/">
                                                 <p className='cursor-pointer'>Sign In</p>
+                                                </Link>
+                                                
                                             </div>
                                         </li>
                                     </ul>

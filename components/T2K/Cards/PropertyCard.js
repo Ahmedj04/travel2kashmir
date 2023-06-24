@@ -13,7 +13,7 @@ function PropertyCard({ hotel = {},price }) {
  const [loc, setLoc] = useState()
     const [lang, setLang] = useState()
     useEffect(() => {
-        setLoc(window.location.origin);
+        setLoc('https://hangul-release.vercel.app/');
         setLang(Router.locale === undefined ? 'en' : Router.locale)
     }, [])
   
