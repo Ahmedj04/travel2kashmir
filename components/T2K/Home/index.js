@@ -12,7 +12,7 @@ function Home() {
 
           {/* image only visible for lg screen */}
           <div className='hidden lg:block lg:h-96 lg:w-3/12 lg:flex lg:justify-center lg:mt-36 lg:mb-5'>
-            <img src='/winter1.jpg' className='home-img h-96 lg:rounded-tr-full'></img>
+            <img src='/winter1.jpg' className='home-img h-96 lg:rounded-3xl'></img>
           </div>
 
           <div className='py-52 md:py-96 lg:my-auto lg:py-0 lg:w-6/12  z-10'>
@@ -27,7 +27,7 @@ function Home() {
 
           {/* image only visible for lg screen */}
           <div className='hidden lg:block lg:h-96 lg:w-3/12 lg:flex lg:justify-center lg:mt-5'>
-            <img src='/chinar2.jpg' className='home-img lg:h-96 lg:rounded-bl-full'></img>
+            <img src='/chinar2.jpg' className='home-img lg:h-96 lg:rounded-3xl'></img>
           </div>
 
         </div>
