@@ -16,13 +16,14 @@ function Header() {
         {/* desktop view */}
         <div className='hidden lg:flex '>
           {/* <div className='flex justify-center'> */}
-          <img onClick={()=>Router.push(window.location.origin)} src='/t2k.png'/>
+          <img onClick={() => Router.push(window.location.origin)} src='/t2k.png' />
 
-        
+
         </div>
         <ul className='hidden lg:mr-20 lg:justify-end lg:block lg:flex lg:gap-10 lg:my-auto lg:ml-auto'>
-          
+
           <li className=' text-base font-medium text-gray-700 hover:text-blue-600 cursor-pointer'><a href='/'>Home</a></li>
+
           <li className=' text-base font-medium text-gray-700 hover:text-blue-600 cursor-pointer'><a href='/aboutus'>About us</a></li>
           <li className='font-medium text-gray-700 hover:text-blue-600 hover:text-blue-800 cursor-pointer'>Properties</li>
           <li className='font-medium text-gray-700 hover:text-blue-600 hover:text-blue-800 cursor-pointer'><span onClick={()=>document.getElementById('sublist').className==='hidden'?
@@ -34,15 +35,9 @@ function Header() {
           </ul>
           
         </li>
+
         </ul>
-       
-
-
-        {/* <i className='hidden lg:block'><AccountCircleIcon fontSize='large' /></i> */}
-
       </div>
-   
-
     </section>
   )
 }
