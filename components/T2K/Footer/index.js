@@ -42,8 +42,8 @@ function Footer() {
                             </div>
 
                             <div className='md:flex md:gap-40'>
-                            <div className='flex items-center justify-center w-auto h-auto '>
-                                <img  src='/t2k.png'/></div>
+                                <div className='flex items-center justify-center w-auto h-auto '>
+                                    <img src='/t2k.png' /></div>
                                 <div className='pt-12 px-3'>
                                     <h2 className='pb-3 text-2xl font-bold'>Contact</h2>
                                     <ul className=''>
@@ -93,9 +93,9 @@ function Footer() {
                                             <div className='flex gap-3'>
                                                 <ExitToAppOutlinedIcon />
                                                 <Link href="https://hangul-release.vercel.app/">
-                                                <p className='cursor-pointer'>Sign In</p>
+                                                    <p className='cursor-pointer'>Sign In</p>
                                                 </Link>
-                                                
+
                                             </div>
                                         </li>
                                     </ul>
@@ -112,7 +112,7 @@ function Footer() {
                         <div className=' py-3 border-t-2'>
                             <div>
                                 <div className='my-6 px-3 text-center'>
-                                    <p >Copyright &copy; {new Date().getFullYear()} Travel To Kashmir</p>
+                                    <p >Copyright &copy; {new Date().getFullYear()} Travel2Kashmir</p>
                                 </div>
                             </div>
                         </div>
@@ -125,8 +125,8 @@ function Footer() {
             {/* ------------------- modal view for footer-------------------------- */}
 
             <div className={showModalContactUs === 1 ? "block" : "hidden"}>
-                <ContactUsModal 
-                    setShowModalContactUs = {setShowModalContactUs}
+                <ContactUsModal
+                    setShowModalContactUs={setShowModalContactUs}
                 />
             </div>
 

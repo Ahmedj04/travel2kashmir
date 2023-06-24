@@ -16,33 +16,28 @@ function Header() {
         {/* desktop view */}
         <div className='hidden lg:flex '>
           {/* <div className='flex justify-center'> */}
-          <img onClick={()=>Router.push(window.location.origin)} src='/t2k.png'/>
+          <img onClick={() => Router.push(window.location.origin)} src='/t2k.png' />
 
-        
+
         </div>
         <ul className='hidden lg:mr-20 lg:justify-end lg:block lg:flex lg:gap-10 lg:my-auto lg:ml-auto'>
-          
+
           <li className=' text-base font-medium text-gray-700 hover:text-blue-600 cursor-pointer'><a href='/'>Home</a></li>
           <li className=' text-base font-medium text-gray-700 hover:text-blue-600 cursor-pointer'><a href='/'>About us</a></li>
-          <li className='font-medium text-gray-700 hover:text-blue-600 hover:text-blue-800 cursor-pointer'>Properties</li>
-          <li className='font-medium text-gray-700 hover:text-blue-600 hover:text-blue-800 cursor-pointer'><span onClick={()=>document.getElementById('sublist').className==='hidden'?
-          document.getElementById('sublist').className='block absolute bg-white py-3 px-4':document.getElementById('sublist').className='hidden'}>Places</span>
-          <ul id='sublist' className='hidden'>
-            <li className='border-b border-black font-medium pt-2 text-gray-700 hover:text-blue-600 hover:text-blue-800 cursor-pointer'>Srinagar</li>
-            <li className='border-b border-black font-medium pt-2 text-gray-700 hover:text-blue-600 hover:text-blue-800 cursor-pointer'>Jammu</li>
-            <li className='border-b border-black font-medium pt-2 text-gray-700 hover:text-blue-600 hover:text-blue-800 cursor-pointer'>Gulmarg</li>
-          </ul>
-          
-        </li>
+          <li className='font-medium text-gray-700 hover:text-blue-600 hover:text-blue-600 cursor-pointer'>Properties</li>
+          <li className='font-medium text-gray-700 hover:text-blue-600 hover:text-blue-600 cursor-pointer'><span   onClick={() => document.getElementById('sublist').className === 'hidden' ?
+            document.getElementById('sublist').className = 'block absolute bg-white py-5 px-4 rounded' : document.getElementById('sublist').className = 'hidden'}>Places</span>
+            <ul id='sublist'
+              onClick={() => document.getElementById('sublist').className === 'hidden' ?
+            document.getElementById('sublist').className = 'block absolute bg-white py-5 px-4 rounded' : document.getElementById('sublist').className = 'hidden'} className='hidden'>
+              <li className='border-b border-black font-medium text-sm text-gray-700 hover:text-blue-600  cursor-pointer'>Srinagar</li>
+              <li className='border-b border-black font-medium pt-3 text-sm text-gray-700 hover:text-blue-600  cursor-pointer'>Jammu</li>
+              <li className='border-b border-black font-medium pt-3 text-sm text-gray-700 hover:text-blue-600 cursor-pointer'>Gulmarg</li>
+            </ul>
+
+          </li>
         </ul>
-       
-
-
-        {/* <i className='hidden lg:block'><AccountCircleIcon fontSize='large' /></i> */}
-
       </div>
-   
-
     </section>
   )
 }
