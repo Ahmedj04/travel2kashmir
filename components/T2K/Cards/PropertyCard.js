@@ -45,7 +45,7 @@ function PropertyCard({ hotel = {},price,bgcolor }) {
 
 
 
-                    <button className={`${price?.price === 0? `mt-11`:``} mx-auto h-8 w-full bg-blue-700 border-none rounded-2xl text-white`}>
+                    <button className={`${price?.price === 0? `mt-11`:``} mx-auto h-9 w-full bg-blue-700 border-none rounded-2xl text-white`}>
                         <Link
                             href={
                                 `${loc}/${lang}/${hotel?.address[0].address_province.replace(
