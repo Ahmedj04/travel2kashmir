@@ -5,7 +5,7 @@ function Capsule({title,action,selected}) {
     <div 
     onClick={(e)=>action(title)}
     className={`h-12
-      ${selected=== true ?`bg-blue-700`:`bg-blue-500`} text-white
+      ${selected=== true ?`bg-blue-700`:`bg-blue-400`} text-white
       border rounded-3xl border-none
       p-4 capitalize flex justify-center items-center`}>
         {title}

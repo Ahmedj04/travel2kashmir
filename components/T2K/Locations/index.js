@@ -89,7 +89,7 @@ function index() {
   return (
     <>
       {/* location selector  */}
-      <section >
+      <section className='bg-slate-100 pt-10'>
         <div >
           <div className='py-4'>
             <div className='px-3 text-center'>
@@ -135,7 +135,7 @@ function index() {
       </section>
 
       {/* properties based on location  */}
-      <section className='mb-4'>
+      <section className='mb-4 bg-slate-100 pb-10'>
         <div className='py-1'>
           <div className='px-3 text-center'>
             <div className='md:flex md:flex-wrap md:gap-10 md:justify-center md:mt-10
@@ -149,7 +149,7 @@ function index() {
                 {onlyBasicDetails?.map((hotel, idx) =>
                 (hotel?.address[0].address_city === selectedCity ?
                   <div key={idx} className='lg:w-3/12' >
-                    <PropertyCard hotel={hotel} price={hotelRoomPrice.filter(price => price.property_id === hotel.property_id)[0]} />
+                    <PropertyCard bgcolor={"bg-white"} hotel={hotel} price={hotelRoomPrice.filter(price => price.property_id === hotel.property_id)[0]} />
                   </div> : <></>
                 ))}
               </>}

@@ -9,7 +9,7 @@ import {
 import { Router } from 'next/router';
 import Link from 'next/link';
 
-function PropertyCard({ hotel = {},price }) {
+function PropertyCard({ hotel = {},price,bgcolor }) {
  const [loc, setLoc] = useState()
     const [lang, setLang] = useState()
     useEffect(() => {
@@ -19,7 +19,7 @@ function PropertyCard({ hotel = {},price }) {
   
     return (
         <>
-            <div className='border rounded-xl md:h-full  md:hover:shadow-2xl md:hover:scale-105 md:hover:transition-all'>
+            <div className={`border rounded-xl md:h-full  md:hover:shadow-2xl md:hover:scale-105 md:hover:transition-all ${bgcolor}`}>
                 {/* hotel image */}
                 <div className='p-4'>
                     {JSON.stringify(Object.keys(hotel).includes('images')) === "true" ? <img src={hotel?.images[0]?.image_link} className='h-48 w-full' alt="property_image" /> :
@@ -45,7 +45,7 @@ function PropertyCard({ hotel = {},price }) {
 
 
 
-                    <button className={`${price?.price === 0? `mt-11`:``} mx-auto h-8 w-full bg-blue-700 border-none rounded-2xl text-white`}>
+                    <button className={`${price?.price === 0? `mt-11`:``} mx-auto h-9 w-full bg-blue-700 border-none rounded-2xl text-white`}>
                         <Link
                             href={
                                 `${loc}/${lang}/${hotel?.address[0].address_province.replace(
