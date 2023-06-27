@@ -41,9 +41,10 @@ function Footer() {
                                 </ul>
                             </div>
 
-                            <div className='md:flex md:gap-40'>
-                                <div className='flex items-center justify-center w-auto h-auto '>
-                                    <img src='/t2k.png' /></div>
+                            <div className='md:flex md:gap-5 lg:gap-16'>
+                                <div className='pt-12 px-3 flex items-center justify-center'>
+                                    <img src='/t2k.png' />
+                                </div>
                                 <div className='pt-12 px-3'>
                                     <h2 className='pb-3 text-2xl font-bold'>Contact</h2>
                                     <ul className=''>

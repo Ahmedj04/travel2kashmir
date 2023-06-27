@@ -51,7 +51,7 @@ function index() {
     for (let i = 0; i < temp_rates.length; i++) {
       if (min > temp_rates[i].price) {
         min = temp_rates[i].price
-        final = { "property_id": room.property_id, "price": temp_rates[i].price, "currency": temp_rates[i].currency }
+        final = { "property_id": property_id, "price": temp_rates[i].price, "currency": temp_rates[i].currency }
       }
     }
     return final;

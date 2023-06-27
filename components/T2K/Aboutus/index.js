@@ -2,7 +2,7 @@ import React from 'react'
 
 function index() {
     return (
-        <div className='h-screen bg-slate-100'><h1 className='text-3xl pt-4'>
+        <div className=' bg-slate-100'><h1 className='text-3xl pt-4'>
             <center>About Travel2kashmir</center></h1>
             <div className='p-4 text-lg'>
                 <p  className='py-2'>
