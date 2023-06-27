@@ -47,7 +47,7 @@ function index() {
     }
 
     let min = temp_rates[0].price;
-    let final = { "property_id": room.property_id, "price": temp_rates[0].price, "currency": temp_rates[0].currency }
+    let final = { "property_id": property_id, "price": temp_rates[0].price, "currency": temp_rates[0].currency }
     for (let i = 0; i < temp_rates.length; i++) {
       if (min > temp_rates[i].price) {
         min = temp_rates[i].price
