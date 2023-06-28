@@ -60,6 +60,7 @@ function place() {
     const [allCities, setAllCities] = useState(['city']);
     const [selectedCity, setSelectedCity] = useState()
     const [hotelRoomPrice, setHotelRoomPrice] = useState({})
+    const [empty, setEmpty] = useState(false)
     function room_price(all_property) {
         let property_id = all_property.property_id;
         let temp_rates = [];
@@ -106,22 +107,25 @@ function place() {
         axios.get(url)
             .then((response) => {
                 setAllFullProperties(response.data)
-                const all_property_room_data = response.data.map(item => (
-                    {
-                        "property_id": JSON.parse(item.property_data).property_id,
-                        ...JSON.parse(item.room_data)
-                    }))
-                setHotelRoomPrice(all_property_room_data.map(all_property => room_price(all_property)))
-                setOnlyBasicDetails(response.data.map(property => (JSON.parse(property.property_data))))
-                let property_data = response.data.map(property => (JSON.parse(property.property_data)))
-                // unique list of cities having properties
-                let all_cities = [...new Set(property_data.map((item) => item?.address[0]?.address_city))];
-                setAllCities(all_cities)
-                setSelectedCity(all_cities[0])
-                setShowUI(1);
+                    const all_property_room_data = response.data.map(item => (
+                        {
+                            "property_id": JSON.parse(item.property_data).property_id,
+                            ...JSON.parse(item.room_data)
+                        }))
+                    setHotelRoomPrice(all_property_room_data.map(all_property => room_price(all_property)))
+                    setOnlyBasicDetails(response.data.map(property => (JSON.parse(property.property_data))))
+                    let property_data = response.data.map(property => (JSON.parse(property.property_data)))
+                    // unique list of cities having properties
+                    let all_cities = [...new Set(property_data.map((item) => item?.address[0]?.address_city))];
+                    setAllCities(all_cities)
+                    setSelectedCity(all_cities[0])
+                    setShowUI(1);
+                    setEmpty(false)
+                
             }
             )
             .catch((error) => {
+                setEmpty(true)
                 console.log('error in fetching data of all properties')
             })
     }
@@ -139,7 +143,7 @@ function place() {
             <div className='text-center bg-white md:flex md:flex-row flex flex-col flex-col-reverse z-10 '>
                 <div className='py-10 px-3 md:w-9/12 lg:w-8/12'>
                     <h2 className='capitalize text-3xl md:text-4xl text-gray-700 my-auto inline-block border-b-4 border-gray-700 pb-2 mb-5'>HOTELS</h2>
-
+                    {empty === false ? 
                     <div className='md:flex md:flex-wrap md:gap-2 lg:gap-5 md:justify-center'>
                         {onlyBasicDetails?.map((hotel, idx) =>
                         (hotel?.address[0].address_city === selectedCity ?
@@ -147,7 +151,11 @@ function place() {
                                 <PropertyCard bgcolor={"bg-white"} hotel={hotel} price={hotelRoomPrice.filter(price => price.property_id === hotel.property_id)[0]} />
                             </div> : <></>
                         ))}
-                    </div>
+                    </div> :
+                    <div className='md:flex md:flex-wrap md:gap-2 lg:gap-5 md:justify-center text-xl'>
+                     <h1 >No Registered Property Found !!!</h1>
+                     </div>}
+
 
                 </div>
 
