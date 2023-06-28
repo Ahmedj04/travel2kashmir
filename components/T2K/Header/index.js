@@ -5,7 +5,7 @@ import Router from 'next/router';
 import axios from 'axios';
 
 
-function Header() {
+function Header({bgColor='bg-gradient-to-r from-blue-100 to-rose-100'}) {
 
   const [places, setPlaces] = useState([]);
 
@@ -32,7 +32,7 @@ function Header() {
 
 
   return (
-    <section className='bg-white bg-gradient-to-r from-blue-100 to-rose-100'>
+    <section className={bgColor}>
       <div className='py-3 lg:py-5 px-2 lg:px-5 border border-b-2 flex justify-between'>
         {/* mobile view  and tablet view */}
         <i className='lg:hidden'><AccountCircleIcon fontSize='large' /></i>
@@ -42,7 +42,7 @@ function Header() {
         {/* desktop view */}
         <div className='hidden lg:flex cursor-pointer'>
           {/* <div className='flex justify-center'> */}
-          <img onClick={() => Router.push(window.location.origin)} src='/t2k.png' />
+          <img className='h-20' onClick={() => Router.push(window.location.origin)} src='/t2k.png' />
 
 
         </div>

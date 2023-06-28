@@ -23,7 +23,7 @@ function Footer() {
     const [showModalContactUs, setShowModalContactUs] = useState(0);
 
     return (
-        <section>
+        <section className=' bottom-0'>
             <div className='bg-slate-900 text-white'>
 
                 <div className='pb-14'>

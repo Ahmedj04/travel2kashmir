@@ -9,14 +9,14 @@ import {
 import { Router } from 'next/router';
 import Link from 'next/link';
 
-function PropertyCard({ hotel = {},price,bgcolor }) {
- const [loc, setLoc] = useState()
+function PropertyCard({ hotel = {}, price, bgcolor }) {
+    const [loc, setLoc] = useState()
     const [lang, setLang] = useState()
     useEffect(() => {
         setLoc('https://hangul-release.vercel.app/');
         setLang(Router.locale === undefined ? 'en' : Router.locale)
     }, [])
-  
+
     return (
         <>
             <div className={`border rounded-xl md:h-full  md:hover:shadow-2xl md:hover:scale-105 md:hover:transition-all ${bgcolor}`}>
@@ -38,14 +38,14 @@ function PropertyCard({ hotel = {},price,bgcolor }) {
                     </span>
 
                     {/* hotel rate  */}
-                  {price?.price != 0?<div className='text-sm m-2 flex justify-start items-center'>
+                    {price?.price != 0 ? <div className='text-sm m-2 flex justify-start items-center'>
                         <FontAwesomeIcon icon={faCreditCard} />
                         <h3 className='m-2 capitalize'>{price?.currency}{price?.price}<span className='text-xs'>/Night + taxes</span></h3>
-                    </div>:<></>}  
+                    </div> : <></>}
 
 
 
-                    <button className={`${price?.price === 0? `mt-11`:``} mx-auto h-9 w-full bg-blue-700 border-none rounded-2xl text-white`}>
+                    <button className={`${price?.price === 0 ? `mt-11` : ``} mx-auto h-9 w-full bg-blue-700 border-none rounded-2xl text-white`}>
                         <Link
                             href={
                                 `${loc}/${lang}/${hotel?.address[0].address_province.replace(
