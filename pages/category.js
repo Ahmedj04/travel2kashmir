@@ -9,13 +9,9 @@ function Category() {
   return (
 
     <main>
-
       <Header />
-
       <PropertyCategory />
-
       <Footer />
-
     </main>
   )
 }
