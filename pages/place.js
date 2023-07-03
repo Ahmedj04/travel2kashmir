@@ -1,12 +1,26 @@
-import React, { useState, useEffect } from 'react'
-import Footer from '@/components/T2K/Footer';
-import Header from '@/components/T2K/Header';
+import Header from '@/components/T2K/Header'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import { useRouter } from 'next/router';
+// Import Swiper React components
+import { Swiper, SwiperSlide } from "swiper/react";
+// import required modules
+import SwiperCore, { Autoplay, Pagination, Navigation } from "swiper";
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+
+import Carousel from 'better-react-carousel';
 import PropertyCard from '@/components/T2K/Cards/PropertyCard';
+import Footer from '@/components/T2K/Footer';
+
+
 
 
 function place() {
+    SwiperCore.use([Navigation, Pagination, Autoplay]);
+
     const [place, setPlace] = useState();
     const [placeDetail, setPlaceDetail] = useState([]);
     const [location, setLocation] = useState([]);
@@ -46,6 +60,7 @@ function place() {
             }
         }).then((response) => {
             setPlaceDetail(response.data.places[0])
+            manageCat(response.data.places[0]?.categories)
             console.log(response.data.places[0])
         })
             .catch((error) => {
@@ -61,6 +76,8 @@ function place() {
     const [selectedCity, setSelectedCity] = useState()
     const [hotelRoomPrice, setHotelRoomPrice] = useState({})
     const [empty, setEmpty] = useState(false)
+    const [cat, setCat] = useState([])
+
     function room_price(all_property) {
         let property_id = all_property.property_id;
         let temp_rates = [];
@@ -107,21 +124,21 @@ function place() {
         axios.get(url)
             .then((response) => {
                 setAllFullProperties(response.data)
-                    const all_property_room_data = response.data.map(item => (
-                        {
-                            "property_id": JSON.parse(item.property_data).property_id,
-                            ...JSON.parse(item.room_data)
-                        }))
-                    setHotelRoomPrice(all_property_room_data.map(all_property => room_price(all_property)))
-                    setOnlyBasicDetails(response.data.map(property => (JSON.parse(property.property_data))))
-                    let property_data = response.data.map(property => (JSON.parse(property.property_data)))
-                    // unique list of cities having properties
-                    let all_cities = [...new Set(property_data.map((item) => item?.address[0]?.address_city))];
-                    setAllCities(all_cities)
-                    setSelectedCity(all_cities[0])
-                    setShowUI(1);
-                    setEmpty(false)
-                
+                const all_property_room_data = response.data.map(item => (
+                    {
+                        "property_id": JSON.parse(item.property_data).property_id,
+                        ...JSON.parse(item.room_data)
+                    }))
+                setHotelRoomPrice(all_property_room_data.map(all_property => room_price(all_property)))
+                setOnlyBasicDetails(response.data.map(property => (JSON.parse(property.property_data))))
+                let property_data = response.data.map(property => (JSON.parse(property.property_data)))
+                // unique list of cities having properties
+                let all_cities = [...new Set(property_data.map((item) => item?.address[0]?.address_city))];
+                setAllCities(all_cities)
+                setSelectedCity(all_cities[0])
+                setShowUI(1);
+                setEmpty(false)
+
             }
             )
             .catch((error) => {
@@ -130,60 +147,242 @@ function place() {
             })
     }
 
+    function manageCat(allCat) {
+
+        let categories = allCat?.map(cat => cat.cat_name);
+        let temp = [... new Set(categories)]
+        setCat(temp)
+        console.log("Set: " + cat)
+        console.log(typeof temp)
+    }
 
     return (
         <main>
-            <Header bgColor={'bg-transparent  absolute z-20 w-full'} />
-            <div className='relative flex justify-center items-center bg-[url("/dalLake.jpg")] bg-no-repeat bg-cover h-screen text-center'>
-                <div className='lg:bg-blur backdrop-blur-sm py-2'>
-                    <h2 className='text-white border-b-white capitalize text-5xl md:text-8xl lg:text-8xl  text-gray-700  inline-block border-b-4 border-gray-700 pb-2 mb-5'>{place?.name}</h2>
-                    <p className='text-white md:text-2xl lg:text-xl px-5'>{placeDetail?.description}</p>
-                </div>
-            </div>
-            <div className='text-center bg-white md:flex md:flex-row flex flex-col flex-col-reverse z-10 '>
-                <div className='py-10 px-3 md:w-9/12 lg:w-8/12'>
-                    <h2 className='capitalize text-3xl md:text-4xl text-gray-700 my-auto inline-block border-b-4 border-gray-700 pb-2 mb-5'>HOTELS</h2>
-                    {empty === false ? 
-                    <div className='md:flex md:flex-wrap md:gap-2 lg:gap-5 md:justify-center'>
-                        {onlyBasicDetails?.map((hotel, idx) =>
-                        (hotel?.address[0].address_city === selectedCity ?
-                            <div key={idx} className=' md:w-5/12 lg:w-2/5 ' >
-                                <PropertyCard bgcolor={"bg-white"} hotel={hotel} price={hotelRoomPrice.filter(price => price.property_id === hotel.property_id)[0]} />
-                            </div> : <></>
-                        ))}
-                    </div> :
-                    <div className='md:flex md:flex-wrap md:gap-2 lg:gap-5 md:justify-center text-xl'>
-                     <h1 >No Registered Property Found !!!</h1>
-                     </div>}
+            <Header bgColor='white' />
 
+            <div className='px-3 h-full '>
+                <div className='my-8 flex items-center'>
+                    <p className='text-3xl font-medium text-slate-600 inline-block mr-5 md:mr-10 lg:mr-10'>{place?.name} </p>
+                    <div className='flex flex-wrap w-3/4 '>
+                    {cat.map((item, index) => {
+                        return <span key={index} className='bg-sky-600 text-white py-2 px-2 mx-1 rounded-xl text-xs'>{item}&nbsp;</span>
+                    })}
+                    
+
+                    </div>
+                    
+                    {/* <span > */}
+                    <div className='flex justify-end items-center lg:flex-row md:flex-row flex-col w-full  lg:ml-auto lg:pr-4'>
+                        <img className='inline-block h-20' src={imageURL}></img>
+                        <span className='text-lg font-medium'>{weatherTemperature}°C</span>
+                    </div>
+                    {/* </span> */}
 
                 </div>
+                <div className='hidden lg:block lg:w-5/12 lg:sticky lg:top-0  lg:float-right z-10'>
+                        <div className='lg:ml-9 h-96 border rounded-3xl bg-slate-200 text-center flex '>
+                            <p className='text-3xl m-auto'>Booking Form</p>
+                        </div>
 
-                <div className="md:w-3/12 md:my-10 md:mx-5 lg:w-4/12">
+                </div>
+                <div className='w-full lg:w-7/12'>
                     <div>
-                        <img className='mx-auto inline-block' src={imageURL}></img>
-                        <span className='text-2xl font-medium'>{weatherTemperature}°C</span>
-                    </div>
+                        <div className="tour-hero">
+                            <Swiper
+                                centeredSlides={true}
+                                autoplay={{
+                                    delay: 5000,
+                                    disableOnInteraction: false,
+                                }}
 
-                    <div className='flex flex-wrap justify-center gap-5 md:flex-col lg:flex-row'>
-                        <div className='w-5/12 md:w-full lg:w-5/12 border shadow rounded-xl bg-slate-100 py-5 px-2'>
-                            <p>Latitude: {placeDetail?.latitude}°</p>
-                            <p>Longitude: {placeDetail?.longitude}°</p>
-                        </div>
-                        <div className='w-5/12 md:w-full lg:w-5/12 border shadow rounded-xl bg-slate-100 p-5 flex'>
-                            <p className='m-auto'>Airport: {placeDetail?.airport_distance} km</p>
+                                modules={[Autoplay, Pagination, Navigation]}
+                                className="mySwiper rounded-xl">
+                                <SwiperSlide>
+                                    <img
+                                        className="object-fill w-full h-96"
+                                        src='dalLake.jpg'
+                                        alt="image slide 1"
+                                    />
+                                </SwiperSlide>
+                                <SwiperSlide>
+                                    <img
+                                        className="object-fill w-full h-96"
+                                        src='categoryPic.jpg'
+                                        alt="image slide 1"
+                                    />
+                                </SwiperSlide>
+                            </Swiper>
+                            <div className='mt-10'>
+                                <div className='city-description'>
+                                    <p className='text-slate-500'>{placeDetail?.description}</p>
+                                </div>
+
+                            </div>
+
+                            <div>
+                                {empty === false ?
+                                    <div className='md:flex md:flex-wrap md:gap-2 lg:gap-5 md:justify-center md:py-10'>
+                                        <Carousel cols={3} rows={1} gap={10} autoPlay={5000} loop={true}
+                                            responsiveLayout={[
+                                                {
+                                                    breakpoint: 480,
+                                                    cols: 1,
+                                                    rows: 1,
+                                                    gap: 10,
+                                                    loop: true,
+                                                    autoplay: 1000
+                                                },
+                                                {
+                                                    breakpoint: 810,
+                                                    cols: 2,
+                                                    rows: 1,
+                                                    gap: 10,
+                                                    loop: true,
+                                                    autoplay: 1000
+                                                },
+                                                {
+                                                    breakpoint: 1200,
+                                                    cols: 2,
+                                                    rows: 1,
+                                                    gap: 10,
+                                                    loop: true,
+                                                    autoplay: 1000
+                                                },
+                                            ]}
+                                        >
+                                            {onlyBasicDetails?.map((hotel, idx) =>
+                                            (hotel?.address[0].address_city === selectedCity ?
+                                                <Carousel.Item key={idx}>
+                                                    <div>
+                                                        <PropertyCard bgcolor={"bg-white"} hotel={hotel} price={hotelRoomPrice.filter(price => price.property_id === hotel.property_id)[0]} />
+                                                    </div>
+                                                </Carousel.Item>
+
+                                                : <></>
+                                            ))}
+                                        </Carousel>
+                                    </div> :
+
+                                    <div className='md:flex md:flex-wrap md:gap-2 md:py-10 lg:gap-5 md:justify-center text-xl '>
+                                        <h1 >No Registered Property Found !!!</h1>
+                                    </div>}
+                            </div>
                         </div>
 
+                        <div></div>
                     </div>
                 </div>
-
             </div>
+
+
+            {/* <div className='px-3'>
+                <div className='my-12'>
+                    <p className='text-3xl font-medium text-slate-600'>{place?.name}</p>
+                </div>
+
+                <div className='flex '>
+                    <div className='w-full lg:w-7/12'>
+                        <div>
+                            <div className="tour-hero">
+                                <Swiper
+                                    centeredSlides={true}
+                                    autoplay={{
+                                        delay: 5000,
+                                        disableOnInteraction: false,
+                                    }}
+
+                                    modules={[Autoplay, Pagination, Navigation]}
+                                    className="mySwiper rounded-xl">
+                                    <SwiperSlide>
+                                        <img
+                                            className="object-fill w-full h-96"
+                                            src='dalLake.jpg'
+                                            alt="image slide 1"
+                                        />
+                                    </SwiperSlide>
+                                    <SwiperSlide>
+                                        <img
+                                            className="object-fill w-full h-96"
+                                            src='categoryPic.jpg'
+                                            alt="image slide 1"
+                                        />
+                                    </SwiperSlide>
+                                </Swiper>
+                                <div className='mt-10'>
+                                    <div className='city-description'>
+                                        <p className='text-slate-500'>{placeDetail?.description}</p>
+                                    </div>
+
+                                </div>
+
+                                <div>
+                                    {empty === false ?
+                                        <div className='md:flex md:flex-wrap md:gap-2 lg:gap-5 md:justify-center md:py-10'>
+                                            <Carousel cols={3} rows={1} gap={10} autoPlay={1000} loop={true}
+                                                responsiveLayout={[
+                                                    {
+                                                        breakpoint: 480,
+                                                        cols: 1,
+                                                        rows: 1,
+                                                        gap: 10,
+                                                        loop: true,
+                                                        autoplay: 1000
+                                                    },
+                                                    {
+                                                        breakpoint: 810,
+                                                        cols: 2,
+                                                        rows: 1,
+                                                        gap: 10,
+                                                        loop: true,
+                                                        autoplay: 1000
+                                                    },
+                                                    {
+                                                        breakpoint: 1200,
+                                                        cols: 2,
+                                                        rows: 1,
+                                                        gap: 10,
+                                                        loop: true,
+                                                        autoplay: 1000
+                                                    },
+                                                ]}
+                                            >
+                                                {onlyBasicDetails?.map((hotel, idx) =>
+                                                (hotel?.address[0].address_city === selectedCity ?
+                                                    <Carousel.Item key={idx}>
+                                                        <div>
+                                                            <PropertyCard bgcolor={"bg-white"} hotel={hotel} price={hotelRoomPrice.filter(price => price.property_id === hotel.property_id)[0]} />
+                                                        </div>
+                                                    </Carousel.Item>
+
+                                                    : <></>
+                                                ))}
+                                            </Carousel>
+                                        </div> :
+
+                                        <div className='md:flex md:flex-wrap md:gap-2 md:py-10 lg:gap-5 md:justify-center text-xl '>
+                                            <h1 >No Registered Property Found !!!</h1>
+                                        </div>}
+                                </div>
+                            </div>
+
+                            <div></div>
+                        </div>
+                    </div>
+                    <div className=''>
+                        <div className='lg:ml-9'>
+                            booking form
+                        </div>
+                    </div>
+
+                </div>
+
+            </div> */}
 
             <Footer />
 
-        </main>
 
+        </main>
     )
 }
 
-export default place;
+export default place
