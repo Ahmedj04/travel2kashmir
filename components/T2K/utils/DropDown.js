@@ -1,5 +1,5 @@
 import React from "react";
-import LineLoader from "../loaders/lineloader";
+import LineLoader from "../Loaders/lineloader";
 // import info from '../../public/info.svg'
 import Image from 'next/image'
 import Tooltip from "./Tooltip"

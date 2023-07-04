@@ -2,7 +2,7 @@
 // In this file we created a function DateInput with attributes color,label,req,initialValue,onChangeAction,error,visible,max
 // We applied the same css here present in BasicDetails for every Component & declared the attributes correctly with their specific values
 import React from 'react'
-import LineLoader from '../loaders/lineloader'
+import LineLoader from '../Loaders/lineloader'
 // import info from '../'
 import Image from 'next/image' 
 import Tooltip from "./Tooltip";
