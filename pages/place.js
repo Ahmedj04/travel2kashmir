@@ -14,8 +14,7 @@ import "swiper/css/navigation";
 import Carousel from 'better-react-carousel';
 import PropertyCard from '@/components/T2K/Cards/PropertyCard';
 import Footer from '@/components/T2K/Footer';
-
-
+import BookingForm from '@/components/T2K/utils/BookingForm';
 
 
 function place() {
@@ -164,28 +163,30 @@ function place() {
                 <div className='my-8 flex items-center'>
                     <p className='text-3xl font-medium text-slate-600 inline-block mr-5 md:mr-10 lg:mr-10'>{place?.name} </p>
                     <div className='flex flex-wrap w-3/4 '>
-                    {cat.map((item, index) => {
-                        return <span key={index} className='bg-sky-600 text-white py-2 px-2 mx-1 rounded-xl text-xs'>{item}&nbsp;</span>
-                    })}
-                    
+                        {cat.map((item, index) => {
+                            return <span key={index} className='bg-sky-600 text-white py-2 px-2 mx-1 rounded-xl text-xs'>{item}&nbsp;</span>
+                        })}
+
 
                     </div>
-                    
-                    {/* <span > */}
+
                     <div className='flex justify-end items-center lg:flex-row md:flex-row flex-col w-full  lg:ml-auto lg:pr-4'>
                         <img className='inline-block h-20' src={imageURL}></img>
                         <span className='text-lg font-medium'>{weatherTemperature}°C</span>
                     </div>
-                    {/* </span> */}
 
                 </div>
-                <div className='hidden lg:block lg:w-5/12 lg:sticky lg:top-0  lg:float-right z-10'>
-                        <div className='lg:ml-9 h-96 border rounded-3xl bg-slate-200 text-center flex '>
-                            <p className='text-3xl m-auto'>Booking Form</p>
-                        </div>
+                <div className='hidden lg:block lg:w-4/12 lg:sticky lg:top-0  lg:float-right z-10'>
+
+                    <div className='lg:ml-9 rounded-2xl bg-slate-200 '>
+
+                        <BookingForm />
+
+
+                    </div>
 
                 </div>
-                <div className='w-full lg:w-7/12'>
+                <div className='w-full lg:w-8/12'>
                     <div>
                         <div className="tour-hero">
                             <Swiper
