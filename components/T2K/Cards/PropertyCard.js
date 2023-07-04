@@ -2,10 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faLocationDot,
-    faBuilding,
+    // faBuilding,
     faCreditCard
 
 } from "@fortawesome/free-solid-svg-icons";
+
+import ApartmentIcon from '@mui/icons-material/Apartment';
+
 import { Router } from 'next/router';
 import Link from 'next/link';
 
@@ -27,7 +30,8 @@ function PropertyCard({ hotel = {}, price, bgcolor }) {
 
                     {/* hotel name  */}
                     <h2 className='text-base m-2 flex justify-start items-center'>
-                        <FontAwesomeIcon icon={faBuilding} />
+                        {/* <FontAwesomeIcon icon={faBuilding} /> */}
+                        <ApartmentIcon sx={{ fontSize: '20px' }}/>
                         <span className='mx-2'>{hotel?.property_name}</span>
                     </h2>
 
