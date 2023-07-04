@@ -37,7 +37,7 @@ function PropertyCard({ hotel = {}, price, bgcolor }) {
 
                     {/* hotel address  */}
                     <span className='bold text-sm flex justify-start  items-center m-2 '>
-                        <FontAwesomeIcon icon={faLocationDot} />
+                        <FontAwesomeIcon icon={faLocationDot} size='lg'/>
                         <h2 className='mx-2'>{`${hotel?.address[0]?.address_street_address},${hotel?.address[0]?.address_city}`}</h2>
                     </span>
 
