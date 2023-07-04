@@ -24,8 +24,18 @@ function place() {
     const [placeDetail, setPlaceDetail] = useState([]);
     const [location, setLocation] = useState([]);
 
+    const [allFullProperties, setAllFullProperties] = useState([]);
+    const [showUI, setShowUI] = useState(0);
+    const [onlyBasicDetails, setOnlyBasicDetails] = useState([]);
+    const [allCities, setAllCities] = useState(['city']);
+    const [selectedCity, setSelectedCity] = useState()
+    const [hotelRoomPrice, setHotelRoomPrice] = useState({})
+
+    const [empty, setEmpty] = useState(false)
+    const [cat, setCat] = useState([])
+
     const weatherTemperature = location?.main?.temp;
-    const weatherDescription = location?.weather?.[0]?.description;
+    // const weatherDescription = location?.weather?.[0]?.description;
     const weatherIcon = location?.weather?.[0]?.icon;
     const imageURL = "http://openweathermap.org/img/wn/" + weatherIcon + "@2x.png";
 
@@ -67,15 +77,6 @@ function place() {
                 console.log(error.message)
             })
     }
-
-    const [allFullProperties, setAllFullProperties] = useState([]);
-    const [showUI, setShowUI] = useState(0);
-    const [onlyBasicDetails, setOnlyBasicDetails] = useState([]);
-    const [allCities, setAllCities] = useState(['city']);
-    const [selectedCity, setSelectedCity] = useState()
-    const [hotelRoomPrice, setHotelRoomPrice] = useState({})
-    const [empty, setEmpty] = useState(false)
-    const [cat, setCat] = useState([])
 
     function room_price(all_property) {
         let property_id = all_property.property_id;
@@ -147,48 +148,45 @@ function place() {
     }
 
     function manageCat(allCat) {
-
         let categories = allCat?.map(cat => cat.cat_name);
         let temp = [... new Set(categories)]
         setCat(temp)
         console.log("Set: " + cat)
-        console.log(typeof temp)
     }
 
     return (
         <main>
+
             <Header bgColor='white' />
 
             <div className='px-3 h-full '>
                 <div className='my-8 flex items-center'>
-                    <p className='text-3xl font-medium text-slate-600 inline-block mr-5 md:mr-10 lg:mr-10'>{place?.name} </p>
-                    <div className='flex flex-wrap w-3/4 '>
-                        {cat.map((item, index) => {
-                            return <span key={index} className='bg-sky-600 text-white py-2 px-2 mx-1 rounded-xl text-xs'>{item}&nbsp;</span>
-                        })}
-
-
+                    <div className='w-6/12'>
+                        <p className='text-6xl font-medium text-slate-600 inline-block mr-5 md:mr-10 lg:mr-10'>{place?.name} </p>
+                        <div className='flex flex-wrap w-3/4 pt-5'>
+                            {cat.map((item, index) => {
+                                return <span key={index} className='bg-sky-600 text-white py-2 px-2 mx-1 rounded-xl text-xs'>{item}&nbsp;</span>
+                            })}
+                           
+                        </div>
                     </div>
 
-                    <div className='flex justify-end items-center lg:flex-row md:flex-row flex-col w-full  lg:ml-auto lg:pr-4'>
+                    <div className='flex justify-end items-center lg:flex-row md:flex-row flex-col w-6/12  lg:ml-auto lg:pr-4'>
                         <img className='inline-block h-20' src={imageURL}></img>
                         <span className='text-lg font-medium'>{weatherTemperature}°C</span>
                     </div>
 
                 </div>
+
                 <div className='hidden lg:block lg:w-4/12 lg:sticky lg:top-0  lg:float-right z-10'>
-
                     <div className='lg:ml-9 rounded-2xl bg-slate-200 '>
-
                         <BookingForm />
-
-
                     </div>
-
                 </div>
+
                 <div className='w-full lg:w-8/12'>
                     <div>
-                        <div className="tour-hero">
+                        <div>
                             <Swiper
                                 centeredSlides={true}
                                 autoplay={{
@@ -213,6 +211,7 @@ function place() {
                                     />
                                 </SwiperSlide>
                             </Swiper>
+                            
                             <div className='mt-10'>
                                 <div className='city-description'>
                                     <p className='text-slate-500'>{placeDetail?.description}</p>
@@ -263,7 +262,6 @@ function place() {
                                             ))}
                                         </Carousel>
                                     </div> :
-
                                     <div className='md:flex md:flex-wrap md:gap-2 md:py-10 lg:gap-5 md:justify-center text-xl '>
                                         <h1 >No Registered Property Found !!!</h1>
                                     </div>}
