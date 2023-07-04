@@ -8,6 +8,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 import ApartmentIcon from '@mui/icons-material/Apartment';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import CreditCardIcon from '@mui/icons-material/CreditCard';
 
 import { Router } from 'next/router';
 import Link from 'next/link';
@@ -37,13 +39,15 @@ function PropertyCard({ hotel = {}, price, bgcolor }) {
 
                     {/* hotel address  */}
                     <span className='bold text-sm flex justify-start  items-center m-2 '>
-                        <FontAwesomeIcon icon={faLocationDot} size='lg'/>
+                        {/* <FontAwesomeIcon icon={faLocationDot} size='lg'/> */}
+                        <LocationOnIcon sx={{ fontSize: '20px' }}/>
                         <h2 className='mx-2'>{`${hotel?.address[0]?.address_street_address},${hotel?.address[0]?.address_city}`}</h2>
                     </span>
 
                     {/* hotel rate  */}
                     {price?.price != 0 ? <div className='text-sm m-2 flex justify-start items-center'>
-                        <FontAwesomeIcon icon={faCreditCard} />
+                        {/* <FontAwesomeIcon icon={faCreditCard} /> */}
+                        <CreditCardIcon sx={{ fontSize: '20px' }}/>
                         <h3 className='m-2 capitalize'>{price?.currency}{price?.price}<span className='text-xs'>/Night + taxes</span></h3>
                     </div> : <></>}
 
