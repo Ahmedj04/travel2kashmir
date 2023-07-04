@@ -22,6 +22,7 @@ function place() {
 
     const [place, setPlace] = useState();
     const [placeDetail, setPlaceDetail] = useState([]);
+    const [seasonDetail, setSeasonDetail] = useState([]);
     const [location, setLocation] = useState([]);
 
     const [allFullProperties, setAllFullProperties] = useState([]);
@@ -46,6 +47,7 @@ function place() {
         let place_prop = localStorage.getItem("place")
         setPlace(JSON.parse(place_prop));
         fetchAllPlaceDetails(JSON.parse(place_prop).places_id)
+        fetchAllSeasonDetails(JSON.parse(place_prop).places_id)
         getWeather(JSON.parse(place_prop).name);
         fetchAllProperties(JSON.parse(place_prop).name)
     }, [query])
@@ -77,6 +79,23 @@ function place() {
                 console.log(error.message)
             })
     }
+
+    function fetchAllSeasonDetails(id) {
+        let url = `/api2/seasons/${id}`;
+        axios.get(url, {
+            headers: {
+                "x-hasura-admin-secret": process.env.NEXT_PUBLIC_PASS
+            }
+        }).then((response) => {
+            setSeasonDetail(response.data.place_seasons)
+            console.log(response.data.place_seasons)
+        })
+            .catch((error) => {
+                alert(error.message)
+                console.log(error.message)
+            })
+    }
+
 
     function room_price(all_property) {
         let property_id = all_property.property_id;
@@ -165,20 +184,23 @@ function place() {
                         <p className='text-6xl font-medium text-slate-600 inline-block mr-5 md:mr-10 lg:mr-10'>{place?.name} </p>
                         <div className='flex flex-wrap w-3/4 pt-5'>
                             {cat.map((item, index) => {
-                                return <span key={index} className='bg-sky-600 text-white py-2 px-2 mx-1 rounded-xl text-xs'>{item}&nbsp;</span>
+                                return <span key={index} className='bg-gray-500 text-white py-2 px-2 mx-1 rounded-xl text-xs'>{item}&nbsp;</span>
                             })}
-                           
+
                         </div>
                     </div>
 
-                    <div className='flex justify-end items-center lg:flex-row md:flex-row flex-col w-6/12  lg:ml-auto lg:pr-4'>
+                    {/* weather for place */}
+                    {/* <div className='flex justify-end items-center lg:flex-row md:flex-row flex-col w-6/12  lg:ml-auto lg:pr-4'>
                         <img className='inline-block h-20' src={imageURL}></img>
                         <span className='text-lg font-medium'>{weatherTemperature}°C</span>
-                    </div>
+                    </div> */}
 
                 </div>
 
-                <div className='hidden lg:block lg:w-4/12 lg:sticky lg:top-0  lg:float-right z-10'>
+                {/* -------------------------------------------------------------------------- */}
+                {/* for now commented this code because need to change the UI. Needed to add season section */}
+                {/* <div className='hidden lg:block lg:w-4/12 lg:sticky lg:top-0  lg:float-right z-10'>
                     <div className='lg:ml-9 rounded-2xl bg-slate-200 '>
                         <BookingForm />
                     </div>
@@ -211,7 +233,7 @@ function place() {
                                     />
                                 </SwiperSlide>
                             </Swiper>
-                            
+
                             <div className='mt-10'>
                                 <div className='city-description'>
                                     <p className='text-slate-500'>{placeDetail?.description}</p>
@@ -270,112 +292,220 @@ function place() {
 
                         <div></div>
                     </div>
-                </div>
-            </div>
+                </div> 
+                */}
+                {/* ------------------------------------------------------------------------------------- */}
 
-
-            {/* <div className='px-3'>
-                <div className='my-12'>
-                    <p className='text-3xl font-medium text-slate-600'>{place?.name}</p>
-                </div>
-
-                <div className='flex '>
-                    <div className='w-full lg:w-7/12'>
+                <div className='flex mb-10'>
+                    <div className='w-full lg:w-8/12'>
                         <div>
-                            <div className="tour-hero">
-                                <Swiper
-                                    centeredSlides={true}
-                                    autoplay={{
-                                        delay: 5000,
-                                        disableOnInteraction: false,
-                                    }}
+                            <Swiper
+                                centeredSlides={true}
+                                autoplay={{
+                                    delay: 5000,
+                                    disableOnInteraction: false,
+                                }}
 
-                                    modules={[Autoplay, Pagination, Navigation]}
-                                    className="mySwiper rounded-xl">
-                                    <SwiperSlide>
-                                        <img
-                                            className="object-fill w-full h-96"
-                                            src='dalLake.jpg'
-                                            alt="image slide 1"
-                                        />
-                                    </SwiperSlide>
-                                    <SwiperSlide>
-                                        <img
-                                            className="object-fill w-full h-96"
-                                            src='categoryPic.jpg'
-                                            alt="image slide 1"
-                                        />
-                                    </SwiperSlide>
-                                </Swiper>
-                                <div className='mt-10'>
-                                    <div className='city-description'>
-                                        <p className='text-slate-500'>{placeDetail?.description}</p>
-                                    </div>
+                                modules={[Autoplay, Pagination, Navigation]}
+                                className="mySwiper rounded-xl">
+                                <SwiperSlide>
+                                    <img
+                                        className="object-fill w-full h-96"
+                                        src='dalLake.jpg'
+                                        alt="image slide 1"
+                                    />
+                                </SwiperSlide>
+                                <SwiperSlide>
+                                    <img
+                                        className="object-fill w-full h-96"
+                                        src='categoryPic.jpg'
+                                        alt="image slide 1"
+                                    />
+                                </SwiperSlide>
+                            </Swiper>
 
+                            <div className='mt-10'>
+                                <div className='city-description'>
+                                    <p className='text-slate-500'>{placeDetail?.description}</p>
                                 </div>
 
-                                <div>
-                                    {empty === false ?
-                                        <div className='md:flex md:flex-wrap md:gap-2 lg:gap-5 md:justify-center md:py-10'>
-                                            <Carousel cols={3} rows={1} gap={10} autoPlay={1000} loop={true}
-                                                responsiveLayout={[
-                                                    {
-                                                        breakpoint: 480,
-                                                        cols: 1,
-                                                        rows: 1,
-                                                        gap: 10,
-                                                        loop: true,
-                                                        autoplay: 1000
-                                                    },
-                                                    {
-                                                        breakpoint: 810,
-                                                        cols: 2,
-                                                        rows: 1,
-                                                        gap: 10,
-                                                        loop: true,
-                                                        autoplay: 1000
-                                                    },
-                                                    {
-                                                        breakpoint: 1200,
-                                                        cols: 2,
-                                                        rows: 1,
-                                                        gap: 10,
-                                                        loop: true,
-                                                        autoplay: 1000
-                                                    },
-                                                ]}
-                                            >
-                                                {onlyBasicDetails?.map((hotel, idx) =>
-                                                (hotel?.address[0].address_city === selectedCity ?
-                                                    <Carousel.Item key={idx}>
-                                                        <div>
-                                                            <PropertyCard bgcolor={"bg-white"} hotel={hotel} price={hotelRoomPrice.filter(price => price.property_id === hotel.property_id)[0]} />
-                                                        </div>
-                                                    </Carousel.Item>
-
-                                                    : <></>
-                                                ))}
-                                            </Carousel>
-                                        </div> :
-
-                                        <div className='md:flex md:flex-wrap md:gap-2 md:py-10 lg:gap-5 md:justify-center text-xl '>
-                                            <h1 >No Registered Property Found !!!</h1>
-                                        </div>}
-                                </div>
                             </div>
 
-                            <div></div>
+                            {/* hotel carousel commented and actually taken out of this div */}
+                            {/* <div>
+                                {empty === false ?
+                                    <div className='md:flex md:flex-wrap md:gap-2 lg:gap-5 md:justify-center md:py-10'>
+                                        <Carousel cols={3} rows={1} gap={10} autoPlay={5000} loop={true}
+                                            responsiveLayout={[
+                                                {
+                                                    breakpoint: 480,
+                                                    cols: 1,
+                                                    rows: 1,
+                                                    gap: 10,
+                                                    loop: true,
+                                                    autoplay: 1000
+                                                },
+                                                {
+                                                    breakpoint: 810,
+                                                    cols: 2,
+                                                    rows: 1,
+                                                    gap: 10,
+                                                    loop: true,
+                                                    autoplay: 1000
+                                                },
+                                                {
+                                                    breakpoint: 1200,
+                                                    cols: 2,
+                                                    rows: 1,
+                                                    gap: 10,
+                                                    loop: true,
+                                                    autoplay: 1000
+                                                },
+                                            ]}
+                                        >
+                                            {onlyBasicDetails?.map((hotel, idx) =>
+                                            (hotel?.address[0].address_city === selectedCity ?
+                                                <Carousel.Item key={idx}>
+                                                    <div>
+                                                        <PropertyCard bgcolor={"bg-white"} hotel={hotel} price={hotelRoomPrice.filter(price => price.property_id === hotel.property_id)[0]} />
+                                                    </div>
+                                                </Carousel.Item>
+
+                                                : <></>
+                                            ))}
+                                        </Carousel>
+                                    </div> :
+                                    <div className='md:flex md:flex-wrap md:gap-2 md:py-10 lg:gap-5 md:justify-center text-xl '>
+                                        <h1 >No Registered Property Found !!!</h1>
+                                    </div>}
+                            </div> */}
+
                         </div>
+
                     </div>
-                    <div className=''>
-                        <div className='lg:ml-9'>
-                            booking form
+
+                    {/* for now hidden for sm and md screen */}
+                    <div className='hidden lg:block lg:w-4/12'>
+                        <div className='ml-9 py-6 border rounded-lg shadow-lg'>
+
+                            <div className='flex pb-2'>
+                                <h3 className='lg:text-2xl flex leading-none pl-6 font-bold my-auto'>Seasons</h3>
+                                <div className='flex justify-end items-center lg:flex-row md:flex-row flex-col w-6/12  lg:ml-auto lg:pr-4'>
+                                    <img className='inline-block h-12' src={imageURL}></img>
+                                    <span className='text-lg font-medium text-sm'>{weatherTemperature}°C</span>
+                                </div>
+                            </div>
+                            <div className='px-6'>
+                                {seasonDetail?.map((season, index) => {
+                                    return (
+                                        <div key={index} className='flex justify-between border-b pt-2'>
+                                            <p>{season.season_name}</p>
+                                            <p>{season.period}</p>
+                                            <div>
+                                                <span>{season.min_temp}°C to </span>
+                                                <span>{season.max_temp}°C</span>
+                                            </div>
+
+                                        </div>
+                                    )
+                                })}
+                            </div>
+                            <div>
+                                <h3 className='lg:text-2xl font-bold pl-6 pt-6'>Languages</h3>
+                                <div className='px-6 mt-2 flex'>
+                                    {placeDetail?.languages_spoken?.map((place, index) => {
+                                        return (
+                                            <div className=''>
+                                                <p key={index} className='bg-orange-500 text-white py-2 px-2 mx-1 rounded-xl text-xs'>{place?.language}</p>
+
+                                            </div>
+
+                                        );
+                                    })}
+                                </div>
+
+                            </div>
+
                         </div>
                     </div>
 
                 </div>
 
-            </div> */}
+                <hr className='pb-10' />
+
+                <div className='hidden lg:block lg:w-4/12 lg:sticky lg:top-0  lg:float-right z-10'>
+                    <div className='lg:ml-9 rounded-2xl bg-slate-50 shadow '>
+                        <BookingForm />
+                    </div>
+                </div>
+                <div className='lg:w-8/12 border shadow h-96 flex'>
+                    <div className='lg:w-6/12'><h2 className='font-medium text-xl text-slate-600  py-5 text-center'>Things To Do</h2></div>
+                    <div className='lg:w-6/12'><h2 className='font-medium text-xl text-slate-600 py-5 text-center'>Attractions</h2></div>
+                </div>
+
+
+                {/* <div className='flex my-10'>
+                    <div className='lg:w-4/12'>hello</div>
+                    <div className='lg:w-4/12'>world</div>
+                    <div className='hidden lg:block lg:w-4/12 lg:sticky lg:top-0  lg:float-right z-10'>
+                        <div className='lg:ml-9 rounded-2xl bg-slate-200 '>
+                            <BookingForm />
+                        </div>
+                    </div>
+                </div> */}
+
+                {/* <hr /> */}
+
+                {/* hotels div */}
+                <div className='w-full lg:w-8/12'>
+                    {empty === false ?
+                        <div className='md:flex md:flex-wrap md:gap-2 lg:gap-5 md:justify-start md:py-10'>
+                            <Carousel cols={3} rows={1} gap={20} autoPlay={5000} loop={true}
+                                responsiveLayout={[
+                                    {
+                                        breakpoint: 480,
+                                        cols: 1,
+                                        rows: 1,
+                                        gap: 10,
+                                        loop: true,
+                                        autoplay: 1000
+                                    },
+                                    {
+                                        breakpoint: 810,
+                                        cols: 2,
+                                        rows: 1,
+                                        gap: 10,
+                                        loop: true,
+                                        autoplay: 1000
+                                    },
+                                    {
+                                        breakpoint: 1200,
+                                        cols: 2,
+                                        rows: 1,
+                                        gap: 10,
+                                        loop: true,
+                                        autoplay: 1000
+                                    },
+                                ]}
+                            >
+                                {onlyBasicDetails?.map((hotel, idx) =>
+                                (hotel?.address[0].address_city === selectedCity ?
+                                    <Carousel.Item key={idx}>
+                                        <div>
+                                            <PropertyCard bgcolor={"bg-white"} hotel={hotel} price={hotelRoomPrice.filter(price => price.property_id === hotel.property_id)[0]} />
+                                        </div>
+                                    </Carousel.Item>
+
+                                    : <></>
+                                ))}
+                            </Carousel>
+                        </div> :
+                        <div className='md:flex md:flex-wrap md:gap-2 md:py-10 lg:gap-5 md:justify-center text-xl '>
+                            <h1 >No Registered Property Found !!!</h1>
+                        </div>}
+                </div>
+
+            </div>
 
             <Footer />
 
