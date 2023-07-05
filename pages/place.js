@@ -387,15 +387,27 @@ function place() {
                     {/* for now hidden for sm and md screen */}
                     <div className='hidden lg:block lg:w-4/12'>
                         <div className='ml-9 py-6 border rounded-lg shadow-lg'>
-
                             <div className='flex pb-2'>
-                                <h3 className='lg:text-2xl flex leading-none pl-6 font-bold my-auto'>Seasons</h3>
+                                <div className='pl-6'>
+                                    <h3 className='lg:text-2xl flex leading-none font-bold my-auto border-b-2 border-slate-600 inline-block'>Seasons</h3>
+                                </div>
                                 <div className='flex justify-end items-center lg:flex-row md:flex-row flex-col w-6/12  lg:ml-auto lg:pr-4'>
                                     <img className='inline-block h-12' src={imageURL}></img>
                                     <span className='text-lg font-medium text-sm'>{weatherTemperature}°C</span>
                                 </div>
                             </div>
                             <div className='px-6'>
+                                {/* <table className='border c'>
+                                    {seasonDetail?.map((season, index) => {
+                                        return (
+                                            <tr key={index}>
+                                                <td className='pr-5'>{season.season_name}</td>
+                                                <td className='pr-5'>{season.period}</td>
+                                                <td>{season.min_temp}°C to {season.max_temp}°C</td>
+                                            </tr>
+                                        )
+                                    })}
+                                </table> */}
                                 {seasonDetail?.map((season, index) => {
                                     return (
                                         <div key={index} className='flex justify-between border-b pt-2'>
@@ -405,30 +417,28 @@ function place() {
                                                 <span>{season.min_temp}°C to </span>
                                                 <span>{season.max_temp}°C</span>
                                             </div>
-
                                         </div>
                                     )
                                 })}
                             </div>
+
                             <div>
-                                <h3 className='lg:text-2xl font-bold pl-6 pt-6'>Languages</h3>
-                                <div className='px-6 mt-2 flex'>
+                                <div className=' pl-6 pt-6'>
+                                    <h3 className='lg:text-2xl font-bold border-b-2 border-slate-600 inline-block'>Languages</h3>
+                                </div>
+                                <div className='px-6 mt-4 flex'>
                                     {placeDetail?.languages_spoken?.map((place, index) => {
                                         return (
                                             <div className=''>
                                                 <p key={index} className='bg-orange-500 text-white py-2 px-2 mx-1 rounded-xl text-xs'>{place?.language}</p>
 
                                             </div>
-
                                         );
                                     })}
                                 </div>
-
                             </div>
-
                         </div>
                     </div>
-
                 </div>
 
                 <hr className='pb-10' />
@@ -438,28 +448,62 @@ function place() {
                         <BookingForm />
                     </div>
                 </div>
-                <div className='lg:w-8/12 border shadow h-96 flex'>
-                    <div className='lg:w-6/12'><h2 className='font-medium text-xl text-slate-600  py-5 text-center'>Things To Do</h2></div>
-                    <div className='lg:w-6/12'><h2 className='font-medium text-xl text-slate-600 py-5 text-center'>Attractions</h2></div>
-                </div>
-
-
-                {/* <div className='flex my-10'>
-                    <div className='lg:w-4/12'>hello</div>
-                    <div className='lg:w-4/12'>world</div>
-                    <div className='hidden lg:block lg:w-4/12 lg:sticky lg:top-0  lg:float-right z-10'>
-                        <div className='lg:ml-9 rounded-2xl bg-slate-200 '>
-                            <BookingForm />
+                <div className='w-full lg:w-8/12'>
+                        <div className='py-5 text-center'>
+                            <h2 className='font-bold md:text-2xl lg:text-2xl  border-b-2 border-slate-600 inline-block'>Attractions</h2>
                         </div>
-                    </div>
-                </div> */}
+                        <div className='flex flex-wrap md:gap-1 lg:gap-8 justify-center pb-14 border-b'>
+                            {placeDetail?.attractions?.map((place, index) => {
+                                return (
+                                    <div key={index} className='md:w-60 lg:w-3/12 border rounded-xl  md:hover:shadow-2xl md:hover:scale-105 md:hover:transition-all'>
+                                        <div className='p-5'>
+                                            <div className='mb-5'>
+                                                <h5 className='text-xl font-semibold text-gray-700 capitalize  border-b-2 border-slate-600 inline-block'>{place.attraction_name}</h5>
 
-                {/* <hr /> */}
+                                            </div>
+                                            <img src='/imghome.webp' className=' rounded-md w-full h-36'></img>
+                                            <p className='text-gray-500 tracking-wide text-sm font-normal pt-5'>{place.attraction_description}</p>
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                           
+
+                        </div>
+
+
+                    {/* -----------------------------------------------------------------------------------------------------------          */}
+                    {/* just commented because this code contains the two sections first things to do and attractions */}
+                    {/* <div className='lg:w-6/12'><h2 className='font-medium text-xl text-slate-600  py-5 text-center'>Things To Do</h2></div> */}
+                    {/* <div className='lg:w-6/12 border'>
+                        <h2 className='font-medium text-xl text-slate-600 py-5 text-center'>Attractions</h2>
+                        <div className='flex flex-wrap'>
+                            {placeDetail?.attractions?.map((place, index) => {
+                                return (
+                                    <div className='w-6/12 border rounded-xl  md:hover:shadow-2xl md:hover:scale-105 md:hover:transition-all'>
+                                        <div className='pb-8'>
+                                            <div className='p-8'>
+                                                <h5 className='text-xl font-semibold text-gray-700 mt-5 mb-2 capitalize'>{place.attraction_name}</h5>
+                                                <img src='/dalLake.jpg' className='h-36'></img>
+                                                <p className='text-gray-500 tracking-wide font-normal'>{place.attraction_description}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </div> */}
+                    {/* -------------------------------------------------------------------------------------------- */}
+
+                </div>
 
                 {/* hotels div */}
                 <div className='w-full lg:w-8/12'>
+                    <div className='py-5 text-center'>
+                        <h2 className='font-bold lg:text-2xl  border-b-2 border-slate-600 inline-block'>Hotels</h2>
+                    </div>
                     {empty === false ?
-                        <div className='md:flex md:flex-wrap md:gap-2 lg:gap-5 md:justify-start md:py-10'>
+                        <div className='md:flex md:flex-wrap md:gap-2 lg:gap-5 md:justify-start md:pb-10'>
                             <Carousel cols={3} rows={1} gap={20} autoPlay={5000} loop={true}
                                 responsiveLayout={[
                                     {

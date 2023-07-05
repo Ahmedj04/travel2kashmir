@@ -57,7 +57,7 @@ function Footer() {
                                         <li className='pb-5'>
                                             <div className='flex gap-3'>
                                                 <EmailIcon />
-                                                <p>techworks@travel2kashmir.com</p>
+                                                <p>chairman@travel2kashmir.com</p>
                                             </div>
                                         </li>
                                         <li className='pb-5'>
