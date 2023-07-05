@@ -180,13 +180,12 @@ function place() {
 
             <div className='px-3 h-full '>
                 <div className='my-8 flex items-center'>
-                    <div className='w-6/12'>
+                    <div className='w-full md:w-6/12'>
                         <p className='text-6xl font-medium text-slate-600 inline-block mr-5 md:mr-10 lg:mr-10'>{place?.name} </p>
                         <div className='flex flex-wrap w-3/4 pt-5'>
                             {cat.map((item, index) => {
                                 return <span key={index} className='bg-gray-500 text-white py-2 px-2 mx-1 rounded-xl text-xs'>{item}&nbsp;</span>
                             })}
-
                         </div>
                     </div>
 
@@ -381,7 +380,6 @@ function place() {
                             </div> */}
 
                         </div>
-
                     </div>
 
                     {/* for now hidden for sm and md screen */}
@@ -450,9 +448,9 @@ function place() {
                 </div>
                 <div className='w-full lg:w-8/12'>
                         <div className='py-5 text-center'>
-                            <h2 className='font-bold md:text-2xl lg:text-2xl  border-b-2 border-slate-600 inline-block'>Attractions</h2>
+                            <h2 className='font-bold text-2xl lg:text-2xl  border-b-2 border-slate-600 inline-block'>Attractions</h2>
                         </div>
-                        <div className='flex flex-wrap md:gap-1 lg:gap-8 justify-center pb-14 border-b'>
+                        <div className='flex flex-wrap md:gap-1 lg:gap-8 md:justify-center pb-14 border-b'>
                             {placeDetail?.attractions?.map((place, index) => {
                                 return (
                                     <div key={index} className='md:w-60 lg:w-3/12 border rounded-xl  md:hover:shadow-2xl md:hover:scale-105 md:hover:transition-all'>
@@ -467,8 +465,6 @@ function place() {
                                     </div>
                                 );
                             })}
-                           
-
                         </div>
 
 
@@ -500,7 +496,7 @@ function place() {
                 {/* hotels div */}
                 <div className='w-full lg:w-8/12'>
                     <div className='py-5 text-center'>
-                        <h2 className='font-bold lg:text-2xl  border-b-2 border-slate-600 inline-block'>Hotels</h2>
+                        <h2 className='font-bold text-2xl lg:text-2xl  border-b-2 border-slate-600 inline-block'>Hotels</h2>
                     </div>
                     {empty === false ?
                         <div className='md:flex md:flex-wrap md:gap-2 lg:gap-5 md:justify-start md:pb-10'>
