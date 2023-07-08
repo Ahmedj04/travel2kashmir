@@ -33,21 +33,21 @@ function PropertyCard({ hotel = {}, price, bgcolor }) {
                     {/* hotel name  */}
                     <h2 className='text-base m-2 flex justify-start items-center'>
                         {/* <FontAwesomeIcon icon={faBuilding} /> */}
-                        <ApartmentIcon sx={{ fontSize: '20px' }}/>
+                        <ApartmentIcon sx={{ fontSize: '20px' }} />
                         <span className='mx-2'>{hotel?.property_name}</span>
                     </h2>
 
                     {/* hotel address  */}
                     <span className='bold text-sm flex justify-start  items-center m-2 '>
                         {/* <FontAwesomeIcon icon={faLocationDot} size='lg'/> */}
-                        <LocationOnIcon sx={{ fontSize: '20px' }}/>
+                        <LocationOnIcon sx={{ fontSize: '20px' }} />
                         <h2 className='mx-2'>{`${hotel?.address[0]?.address_street_address},${hotel?.address[0]?.address_city}`}</h2>
                     </span>
 
                     {/* hotel rate  */}
                     {price?.price != 0 ? <div className='text-sm m-2 flex justify-start items-center'>
                         {/* <FontAwesomeIcon icon={faCreditCard} /> */}
-                        <CreditCardIcon sx={{ fontSize: '20px' }}/>
+                        <CreditCardIcon sx={{ fontSize: '20px' }} />
                         <h3 className='m-2 capitalize'>{price?.currency}{price?.price}<span className='text-xs'>/Night + taxes</span></h3>
                     </div> : <></>}
 
@@ -71,7 +71,8 @@ function PropertyCard({ hotel = {}, price, bgcolor }) {
 
 
                 </div>
-            </div></>
+            </div>
+        </>
     )
 }
 

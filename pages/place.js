@@ -15,6 +15,7 @@ import Carousel from 'better-react-carousel';
 import PropertyCard from '@/components/T2K/Cards/PropertyCard';
 import Footer from '@/components/T2K/Footer';
 import BookingForm from '@/components/T2K/utils/BookingForm';
+import Loader from '@/components/T2K/Loaders/Loader';
 
 
 function place() {
@@ -31,6 +32,12 @@ function place() {
     const [allCities, setAllCities] = useState(['city']);
     const [selectedCity, setSelectedCity] = useState()
     const [hotelRoomPrice, setHotelRoomPrice] = useState({})
+
+    // loaders
+    const [seasonLoader, setSeasonLoader] = useState(0);
+    const [placeDetailLoader, setPlaceDetailLoader] = useState(0);
+    const [hotelDetailLoader, setHotelDetailLoader] = useState(0);
+    const [weatherDetailLoader, setWeatherDetailLoader] = useState(0);
 
     const [empty, setEmpty] = useState(false)
     const [cat, setCat] = useState([])
@@ -58,6 +65,7 @@ function place() {
         axios.get(url).then((response) => {
             console.log(response)
             setLocation(response.data)
+            setWeatherDetailLoader(1)
         }).catch((err) => {
             alert(JSON.stringify(err))
         })
@@ -72,6 +80,7 @@ function place() {
         }).then((response) => {
             setPlaceDetail(response.data.places[0])
             manageCat(response.data.places[0]?.categories)
+            setPlaceDetailLoader(1)
             console.log(response.data.places[0])
         })
             .catch((error) => {
@@ -88,6 +97,7 @@ function place() {
             }
         }).then((response) => {
             setSeasonDetail(response.data.place_seasons)
+            setSeasonLoader(1);
             console.log(response.data.place_seasons)
         })
             .catch((error) => {
@@ -157,6 +167,7 @@ function place() {
                 setSelectedCity(all_cities[0])
                 setShowUI(1);
                 setEmpty(false)
+                setHotelDetailLoader(1);
 
             }
             )
@@ -181,11 +192,17 @@ function place() {
             <div className='px-3 h-full '>
                 <div className='my-8 flex items-center'>
                     <div className='w-full md:w-6/12'>
-                        <p className='text-6xl font-medium text-slate-600 inline-block mr-5 md:mr-10 lg:mr-10'>{place?.name} </p>
+                        {placeDetailLoader === 0 ? <><Loader size={`w-6/12 h-20`} /></> : <>
+                            <p className='text-6xl font-medium text-slate-600  inline-block mr-5 md:mr-10 lg:mr-10'>{place?.name} </p>
+
+                        </>}
                         <div className='flex flex-wrap w-3/4 pt-5'>
-                            {cat.map((item, index) => {
-                                return <span key={index} className='bg-gray-500 text-white py-2 px-2 mx-1 rounded-xl text-xs'>{item}&nbsp;</span>
-                            })}
+                            {placeDetailLoader === 0 ? <><Loader size={`w-16 h-8 rounded-3xl`} /><Loader size={`w-16 h-8 ml-1 rounded-3xl`} /> </> : <>
+                                {cat.map((item, index) => {
+                                    return <span key={index} className='bg-gray-500 text-white py-2 px-2 mx-1 rounded-xl text-xs'>{item}&nbsp;</span>
+                                })}
+                            </>}
+
                         </div>
                     </div>
 
@@ -324,9 +341,12 @@ function place() {
                             </Swiper>
 
                             <div className='mt-10'>
-                                <div className='city-description'>
-                                    <p className='text-slate-500'>{placeDetail?.description}</p>
-                                </div>
+                                {placeDetailLoader === 0 ? <Loader size={`w-full h-20`} /> : <>
+                                    <div className='city-description'>
+                                        <p className='text-slate-500'>{placeDetail?.description}</p>
+                                    </div>
+                                </>}
+
 
                             </div>
 
@@ -387,37 +407,31 @@ function place() {
                         <div className='ml-9 py-6 border rounded-lg shadow-lg'>
                             <div className='flex pb-2'>
                                 <div className='pl-6'>
-                                    <h3 className='lg:text-2xl flex leading-none font-bold my-auto border-b-2 border-slate-600 inline-block'>Seasons</h3>
+                                    <h3 className='lg:text-2xl flex leading-none  font-bold my-auto border-b-2 border-slate-600 inline-block'>Seasons</h3>
                                 </div>
                                 <div className='flex justify-end items-center lg:flex-row md:flex-row flex-col w-6/12  lg:ml-auto lg:pr-4'>
-                                    <img className='inline-block h-12' src={imageURL}></img>
-                                    <span className='text-lg font-medium text-sm'>{weatherTemperature}°C</span>
+                                {weatherDetailLoader === 0 ? <Loader size={`w-8 h-7`}/> :<img className='inline-block h-12' src={imageURL}></img> }
+                                {weatherDetailLoader === 0 ? <Loader size={`w-8 h-7`}/> :<span className='text-lg font-medium text-sm'>{weatherTemperature}°C</span> }
+                                    
+                                    
                                 </div>
                             </div>
                             <div className='px-6'>
-                                {/* <table className='border c'>
+                                {seasonLoader === 0 ? <> <Loader size={`w-full h-6 mb-1`} /> <Loader size={`w-full h-6 mb-1 `} /><Loader size={`w-full h-6 mb-1 `} /><Loader size={`w-full h-6 mb-1 `} /></> : <>
                                     {seasonDetail?.map((season, index) => {
                                         return (
-                                            <tr key={index}>
-                                                <td className='pr-5'>{season.season_name}</td>
-                                                <td className='pr-5'>{season.period}</td>
-                                                <td>{season.min_temp}°C to {season.max_temp}°C</td>
-                                            </tr>
+                                            <div key={index} className='flex justify-between border-b pt-2 text-sm text-slate-500'>
+                                                <p>{season.season_name}</p>
+                                                <p className='pl-2 truncate overflow-hidden'>{season.period}</p>
+                                                <div>
+                                                    <span>{season.min_temp}°C to </span>
+                                                    <span>{season.max_temp}°C</span>
+                                                </div>
+                                            </div>
                                         )
                                     })}
-                                </table> */}
-                                {seasonDetail?.map((season, index) => {
-                                    return (
-                                        <div key={index} className='flex justify-between border-b pt-2'>
-                                            <p>{season.season_name}</p>
-                                            <p>{season.period}</p>
-                                            <div>
-                                                <span>{season.min_temp}°C to </span>
-                                                <span>{season.max_temp}°C</span>
-                                            </div>
-                                        </div>
-                                    )
-                                })}
+                                </>}
+
                             </div>
 
                             <div>
@@ -425,16 +439,35 @@ function place() {
                                     <h3 className='lg:text-2xl font-bold border-b-2 border-slate-600 inline-block'>Languages</h3>
                                 </div>
                                 <div className='px-6 mt-4 flex'>
-                                    {placeDetail?.languages_spoken?.map((place, index) => {
-                                        return (
-                                            <div className=''>
-                                                <p key={index} className='bg-orange-500 text-white py-2 px-2 mx-1 rounded-xl text-xs'>{place?.language}</p>
+                                    {placeDetailLoader === 0 ? <><Loader size={`w-20 h-8  rounded-3xl`} /><Loader size={`w-20 h-8 ml-1 rounded-3xl`} /><Loader size={`w-20 h-8 ml-1 rounded-3xl`} /></> : <>
+                                        {placeDetail?.languages_spoken?.map((place, index) => {
+                                            return (
+                                                <div className=''>
+                                                    <p key={index} className='bg-orange-500 text-white py-2 px-2 mx-1 rounded-xl text-sm'>{place?.language}</p>
+                                                </div>
+                                            );
+                                        })}
+                                    </>}
 
-                                            </div>
-                                        );
-                                    })}
                                 </div>
                             </div>
+
+                            <div>
+                                <div className='pl-6 pt-6'>
+                                    <h3 className='lg:text-2xl font-bold border-b-2 border-slate-600 inline-block'>More about place</h3>
+                                </div>
+                                <div className='px-6 mt-4 flex flex-wrap gap-3'>
+                                    {placeDetailLoader === 0 ? <><Loader size={`w-5/12 h-16  rounded-xl`} /><Loader size={`w-5/12 h-16  rounded-xl`} /></> : <>
+                                        <p className='bg-slate-200 w-5/12 text-center rounded-xl  text-slate-500 py-2 px-2 mx-1  text-sm'>Distance form Airport:- {placeDetail?.airport_distance}km</p>
+                                        <p className='bg-slate-200 w-5/12 text-center rounded-xl  text-slate-500 py-2 px-2 mx-1  text-sm'>Best time to visit:- {placeDetail?.best_time_to_visit}</p>
+                                        <p className='bg-slate-200 w-5/12 text-center rounded-xl  text-slate-500 py-2 px-2 mx-1  text-sm'><span className='text-left'>Latitude:- {placeDetail?.latitude}°</span><br /><span>Longitude:- {placeDetail?.longitude}°</span></p>
+
+
+                                    </>}
+
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -446,11 +479,13 @@ function place() {
                         <BookingForm />
                     </div>
                 </div>
+
                 <div className='w-full lg:w-8/12'>
-                        <div className='py-5 text-center'>
-                            <h2 className='font-bold text-2xl lg:text-2xl  border-b-2 border-slate-600 inline-block'>Attractions</h2>
-                        </div>
-                        <div className='flex flex-wrap md:gap-1 lg:gap-8 md:justify-center pb-14 border-b'>
+                    <div className='py-5 text-center'>
+                        <h2 className='font-bold text-2xl lg:text-2xl  border-b-2 border-slate-600 inline-block'>Attractions</h2>
+                    </div>
+                    <div className='flex flex-wrap md:gap-1 lg:gap-8 md:justify-center pb-14 border-b'>
+                        {placeDetailLoader === 0 ? <><Loader size={`w-full mb-1 h-40 block md:inline-block md:w-3/12 md:rounded-xl md:h-40 `} /><Loader size={`w-full h-40 block md:inline-block md:w-3/12 md:rounded-xl md:h-40 `} /></> : <>
                             {placeDetail?.attractions?.map((place, index) => {
                                 return (
                                     <div key={index} className='md:w-60 lg:w-3/12 border rounded-xl  md:hover:shadow-2xl md:hover:scale-105 md:hover:transition-all'>
@@ -465,7 +500,9 @@ function place() {
                                     </div>
                                 );
                             })}
-                        </div>
+                        </>}
+
+                    </div>
 
 
                     {/* -----------------------------------------------------------------------------------------------------------          */}
@@ -495,50 +532,56 @@ function place() {
 
                 {/* hotels div */}
                 <div className='w-full lg:w-8/12'>
-                    <div className='py-5 text-center'>
+                    <div className='py-5 text-center '>
                         <h2 className='font-bold text-2xl lg:text-2xl  border-b-2 border-slate-600 inline-block'>Hotels</h2>
                     </div>
                     {empty === false ?
-                        <div className='md:flex md:flex-wrap md:gap-2 lg:gap-5 md:justify-start md:pb-10'>
-                            <Carousel cols={3} rows={1} gap={20} autoPlay={5000} loop={true}
-                                responsiveLayout={[
-                                    {
-                                        breakpoint: 480,
-                                        cols: 1,
-                                        rows: 1,
-                                        gap: 10,
-                                        loop: true,
-                                        autoplay: 1000
-                                    },
-                                    {
-                                        breakpoint: 810,
-                                        cols: 2,
-                                        rows: 1,
-                                        gap: 10,
-                                        loop: true,
-                                        autoplay: 1000
-                                    },
-                                    {
-                                        breakpoint: 1200,
-                                        cols: 2,
-                                        rows: 1,
-                                        gap: 10,
-                                        loop: true,
-                                        autoplay: 1000
-                                    },
-                                ]}
-                            >
-                                {onlyBasicDetails?.map((hotel, idx) =>
-                                (hotel?.address[0].address_city === selectedCity ?
-                                    <Carousel.Item key={idx}>
-                                        <div>
-                                            <PropertyCard bgcolor={"bg-white"} hotel={hotel} price={hotelRoomPrice.filter(price => price.property_id === hotel.property_id)[0]} />
-                                        </div>
-                                    </Carousel.Item>
+                        <div className='md:flex md:flex-wrap md:gap-2 lg:gap-5 md:justify-start pb-10'>
+                            {hotelDetailLoader === 0 ? <>
+                                <Loader size={`w-full h-44 md:w-5/12 md:h-44`} /><Loader size={`h-0 md:w-5/12 md:h-44`} /> </> : <>
+                                <Carousel
+                                    cols={3} rows={1} gap={20} autoPlay={5000} loop={true}
+                                    responsiveLayout={[
+                                        {
+                                            breakpoint: 480,
+                                            cols: 1,
+                                            rows: 1,
+                                            gap: 10,
+                                            loop: true,
+                                            autoplay: 1000
+                                        },
+                                        {
+                                            breakpoint: 810,
+                                            cols: 2,
+                                            rows: 1,
+                                            gap: 10,
+                                            loop: true,
+                                            autoplay: 1000
+                                        },
+                                        {
+                                            breakpoint: 1200,
+                                            cols: 2,
+                                            rows: 1,
+                                            gap: 10,
+                                            loop: true,
+                                            autoplay: 1000
+                                        },
+                                    ]}
+                                >
+                                    {onlyBasicDetails?.map((hotel, idx) =>
+                                    (hotel?.address[0].address_city === selectedCity ?
+                                        <Carousel.Item key={idx}>
+                                            { }
 
-                                    : <></>
-                                ))}
-                            </Carousel>
+                                            <PropertyCard bgcolor={"bg-white z-50"} hotel={hotel} price={hotelRoomPrice.filter(price => price.property_id === hotel.property_id)[0]} />
+
+                                        </Carousel.Item>
+
+                                        : <></>
+                                    ))}
+                                </Carousel>
+                            </>}
+
                         </div> :
                         <div className='md:flex md:flex-wrap md:gap-2 md:py-10 lg:gap-5 md:justify-center text-xl '>
                             <h1 >No Registered Property Found !!!</h1>
