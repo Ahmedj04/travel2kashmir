@@ -1,11 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-    faLocationDot,
-    // faBuilding,
-    faCreditCard
-
-} from "@fortawesome/free-solid-svg-icons";
 
 import ApartmentIcon from '@mui/icons-material/Apartment';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
@@ -24,7 +17,7 @@ function PropertyCard({ hotel = {}, price, bgcolor }) {
 
     return (
         <>
-            <div className={`border rounded-xl md:h-full  md:hover:shadow-2xl md:hover:scale-105 md:hover:transition-all ${bgcolor}`}>
+            <div className={` border rounded-xl md:h-full  md:hover:shadow-2xl md:hover:scale-105 md:hover:transition-all ${bgcolor}`}>
                 {/* hotel image */}
                 <div className='p-4'>
                     {JSON.stringify(Object.keys(hotel).includes('images')) === "true" ? <img src={hotel?.images[0]?.image_link} className='h-48 w-full' alt="property_image" /> :
@@ -32,21 +25,18 @@ function PropertyCard({ hotel = {}, price, bgcolor }) {
 
                     {/* hotel name  */}
                     <h2 className='text-base m-2 flex justify-start items-center'>
-                        {/* <FontAwesomeIcon icon={faBuilding} /> */}
                         <ApartmentIcon sx={{ fontSize: '20px' }} />
                         <span className='mx-2'>{hotel?.property_name}</span>
                     </h2>
 
                     {/* hotel address  */}
                     <span className='bold text-sm flex justify-start  items-center m-2 '>
-                        {/* <FontAwesomeIcon icon={faLocationDot} size='lg'/> */}
                         <LocationOnIcon sx={{ fontSize: '20px' }} />
                         <h2 className='mx-2'>{`${hotel?.address[0]?.address_street_address},${hotel?.address[0]?.address_city}`}</h2>
                     </span>
 
                     {/* hotel rate  */}
                     {price?.price != 0 ? <div className='text-sm m-2 flex justify-start items-center'>
-                        {/* <FontAwesomeIcon icon={faCreditCard} /> */}
                         <CreditCardIcon sx={{ fontSize: '20px' }} />
                         <h3 className='m-2 capitalize'>{price?.currency}{price?.price}<span className='text-xs'>/Night + taxes</span></h3>
                     </div> : <></>}

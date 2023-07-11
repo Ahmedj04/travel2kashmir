@@ -87,7 +87,8 @@ function index() {
   }, [])
 
   return (
-    <>
+
+    <section id='location'>
       {/* location selector  */}
       <section className='bg-slate-100 pt-10'>
         <div >
@@ -104,8 +105,7 @@ function index() {
                 </p>
               </div>
 
-              <div className='md:flex md:flex-wrap md:gap-10 md:justify-start lg:flex lg:flex-wrap
-                lg:justify-normal lg:gap-2 lg:items-center max-w-fit lg:ml-4 cursor-pointer'>
+              <div className='flex flex-wrap gap-2 md:justify-start lg:items-center max-w-fit lg:ml-4 cursor-pointer'>
 
                 {showUI === 0 ? <>
                   <Loader size={`w-24 h-8 py-3 mb-5 rounded-3xl`} />
@@ -114,12 +114,13 @@ function index() {
                   <Loader size={`w-24 h-8 py-3 mb-5 rounded-3xl`} />
                 </> : <>{allCities?.map((city, index) => {
                   return (
-                    <React.Fragment key={index}>
+                    <div key={index}>
                       <Capsule title={city} action={(e) => setSelectedCity(e)} selected={selectedCity === city} />
-                    </React.Fragment>
+                    </div>
 
                   )
                 })}</>}
+               
 
 
 
@@ -138,8 +139,7 @@ function index() {
       <section className='mb-4 bg-slate-100 pb-10'>
         <div className='py-1'>
           <div className='px-3 text-center'>
-            <div className='md:flex md:flex-wrap md:gap-10 md:justify-center md:mt-10
-              lg:flex lg:flex-wrap lg:gap-4 lg:justify-center lg:mt-4'>
+            <div className='md:flex md:flex-wrap md:gap-10 md:justify-center md:mt-10 lg:flex lg:flex-wrap lg:gap-4 lg:justify-center lg:mt-4'>
               {showUI === 0 ? <>
                 <Loader size={`w-3/12 h-40 py-3 mb-5 `} />
                 <Loader size={`w-3/12 h-40 py-3 mb-5 `} />
@@ -148,7 +148,7 @@ function index() {
               </> : <>
                 {onlyBasicDetails?.map((hotel, idx) =>
                 (hotel?.address[0].address_city === selectedCity ?
-                  <div key={idx} className='lg:w-3/12' >
+                  <div key={idx} className='mb-3 md:mb-0 md:w-5/12 lg:w-3/12' >
                     <PropertyCard bgcolor={"bg-white"} hotel={hotel} price={hotelRoomPrice.filter(price => price.property_id === hotel.property_id)[0]} />
                   </div> : <></>
                 ))}
@@ -158,8 +158,9 @@ function index() {
 
           </div>
         </div>
-      </section >
-    </>
+      </section>
+    </section>
+
   )
 }
 

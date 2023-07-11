@@ -40,6 +40,7 @@ function place() {
     const [weatherDetailLoader, setWeatherDetailLoader] = useState(0);
 
     const [empty, setEmpty] = useState(false)
+    const [attractionEmpty, setAttractionEmpty] = useState(false)
     const [cat, setCat] = useState([])
 
     const weatherTemperature = location?.main?.temp;
@@ -78,13 +79,15 @@ function place() {
                 "x-hasura-admin-secret": process.env.NEXT_PUBLIC_PASS
             }
         }).then((response) => {
+            
             setPlaceDetail(response.data.places[0])
             manageCat(response.data.places[0]?.categories)
             setPlaceDetailLoader(1)
+            response.data.places[0]?.attractions.length===0?setAttractionEmpty(true):setAttractionEmpty(false)
             console.log(response.data.places[0])
         })
             .catch((error) => {
-                alert(error.message)
+                setAttractionEmpty(true)
                 console.log(error.message)
             })
     }
@@ -214,104 +217,6 @@ function place() {
 
                 </div>
 
-                {/* -------------------------------------------------------------------------- */}
-                {/* for now commented this code because need to change the UI. Needed to add season section */}
-                {/* <div className='hidden lg:block lg:w-4/12 lg:sticky lg:top-0  lg:float-right z-10'>
-                    <div className='lg:ml-9 rounded-2xl bg-slate-200 '>
-                        <BookingForm />
-                    </div>
-                </div>
-
-                <div className='w-full lg:w-8/12'>
-                    <div>
-                        <div>
-                            <Swiper
-                                centeredSlides={true}
-                                autoplay={{
-                                    delay: 5000,
-                                    disableOnInteraction: false,
-                                }}
-
-                                modules={[Autoplay, Pagination, Navigation]}
-                                className="mySwiper rounded-xl">
-                                <SwiperSlide>
-                                    <img
-                                        className="object-fill w-full h-96"
-                                        src='dalLake.jpg'
-                                        alt="image slide 1"
-                                    />
-                                </SwiperSlide>
-                                <SwiperSlide>
-                                    <img
-                                        className="object-fill w-full h-96"
-                                        src='categoryPic.jpg'
-                                        alt="image slide 1"
-                                    />
-                                </SwiperSlide>
-                            </Swiper>
-
-                            <div className='mt-10'>
-                                <div className='city-description'>
-                                    <p className='text-slate-500'>{placeDetail?.description}</p>
-                                </div>
-
-                            </div>
-
-                            <div>
-                                {empty === false ?
-                                    <div className='md:flex md:flex-wrap md:gap-2 lg:gap-5 md:justify-center md:py-10'>
-                                        <Carousel cols={3} rows={1} gap={10} autoPlay={5000} loop={true}
-                                            responsiveLayout={[
-                                                {
-                                                    breakpoint: 480,
-                                                    cols: 1,
-                                                    rows: 1,
-                                                    gap: 10,
-                                                    loop: true,
-                                                    autoplay: 1000
-                                                },
-                                                {
-                                                    breakpoint: 810,
-                                                    cols: 2,
-                                                    rows: 1,
-                                                    gap: 10,
-                                                    loop: true,
-                                                    autoplay: 1000
-                                                },
-                                                {
-                                                    breakpoint: 1200,
-                                                    cols: 2,
-                                                    rows: 1,
-                                                    gap: 10,
-                                                    loop: true,
-                                                    autoplay: 1000
-                                                },
-                                            ]}
-                                        >
-                                            {onlyBasicDetails?.map((hotel, idx) =>
-                                            (hotel?.address[0].address_city === selectedCity ?
-                                                <Carousel.Item key={idx}>
-                                                    <div>
-                                                        <PropertyCard bgcolor={"bg-white"} hotel={hotel} price={hotelRoomPrice.filter(price => price.property_id === hotel.property_id)[0]} />
-                                                    </div>
-                                                </Carousel.Item>
-
-                                                : <></>
-                                            ))}
-                                        </Carousel>
-                                    </div> :
-                                    <div className='md:flex md:flex-wrap md:gap-2 md:py-10 lg:gap-5 md:justify-center text-xl '>
-                                        <h1 >No Registered Property Found !!!</h1>
-                                    </div>}
-                            </div>
-                        </div>
-
-                        <div></div>
-                    </div>
-                </div> 
-                */}
-                {/* ------------------------------------------------------------------------------------- */}
-
                 <div className='flex mb-10'>
                     <div className='w-full lg:w-8/12'>
                         <div>
@@ -349,56 +254,6 @@ function place() {
 
 
                             </div>
-
-                            {/* hotel carousel commented and actually taken out of this div */}
-                            {/* <div>
-                                {empty === false ?
-                                    <div className='md:flex md:flex-wrap md:gap-2 lg:gap-5 md:justify-center md:py-10'>
-                                        <Carousel cols={3} rows={1} gap={10} autoPlay={5000} loop={true}
-                                            responsiveLayout={[
-                                                {
-                                                    breakpoint: 480,
-                                                    cols: 1,
-                                                    rows: 1,
-                                                    gap: 10,
-                                                    loop: true,
-                                                    autoplay: 1000
-                                                },
-                                                {
-                                                    breakpoint: 810,
-                                                    cols: 2,
-                                                    rows: 1,
-                                                    gap: 10,
-                                                    loop: true,
-                                                    autoplay: 1000
-                                                },
-                                                {
-                                                    breakpoint: 1200,
-                                                    cols: 2,
-                                                    rows: 1,
-                                                    gap: 10,
-                                                    loop: true,
-                                                    autoplay: 1000
-                                                },
-                                            ]}
-                                        >
-                                            {onlyBasicDetails?.map((hotel, idx) =>
-                                            (hotel?.address[0].address_city === selectedCity ?
-                                                <Carousel.Item key={idx}>
-                                                    <div>
-                                                        <PropertyCard bgcolor={"bg-white"} hotel={hotel} price={hotelRoomPrice.filter(price => price.property_id === hotel.property_id)[0]} />
-                                                    </div>
-                                                </Carousel.Item>
-
-                                                : <></>
-                                            ))}
-                                        </Carousel>
-                                    </div> :
-                                    <div className='md:flex md:flex-wrap md:gap-2 md:py-10 lg:gap-5 md:justify-center text-xl '>
-                                        <h1 >No Registered Property Found !!!</h1>
-                                    </div>}
-                            </div> */}
-
                         </div>
                     </div>
 
@@ -410,10 +265,10 @@ function place() {
                                     <h3 className='lg:text-2xl flex leading-none  font-bold my-auto border-b-2 border-slate-600 inline-block'>Seasons</h3>
                                 </div>
                                 <div className='flex justify-end items-center lg:flex-row md:flex-row flex-col w-6/12  lg:ml-auto lg:pr-4'>
-                                {weatherDetailLoader === 0 ? <Loader size={`w-8 h-7`}/> :<img className='inline-block h-12' src={imageURL}></img> }
-                                {weatherDetailLoader === 0 ? <Loader size={`w-8 h-7`}/> :<span className='text-lg font-medium text-sm'>{weatherTemperature}°C</span> }
-                                    
-                                    
+                                    {weatherDetailLoader === 0 ? <Loader size={`w-8 h-7`} /> : <img className='inline-block h-12' src={imageURL}></img>}
+                                    {weatherDetailLoader === 0 ? <Loader size={`w-8 h-7`} /> : <span className='text-lg font-medium text-sm'>{weatherTemperature}°C</span>}
+
+
                                 </div>
                             </div>
                             <div className='px-6'>
@@ -480,59 +335,41 @@ function place() {
                     </div>
                 </div>
 
+                {/* Attraction div */}
                 <div className='w-full lg:w-8/12'>
-                    <div className='py-5 text-center'>
+                    <div className='pb-10 text-center'>
                         <h2 className='font-bold text-2xl lg:text-2xl  border-b-2 border-slate-600 inline-block'>Attractions</h2>
                     </div>
-                    <div className='flex flex-wrap md:gap-1 lg:gap-8 md:justify-center pb-14 border-b'>
-                        {placeDetailLoader === 0 ? <><Loader size={`w-full mb-1 h-40 block md:inline-block md:w-3/12 md:rounded-xl md:h-40 `} /><Loader size={`w-full h-40 block md:inline-block md:w-3/12 md:rounded-xl md:h-40 `} /></> : <>
-                            {placeDetail?.attractions?.map((place, index) => {
-                                return (
-                                    <div key={index} className='md:w-60 lg:w-3/12 border rounded-xl  md:hover:shadow-2xl md:hover:scale-105 md:hover:transition-all'>
-                                        <div className='p-5'>
-                                            <div className='mb-5'>
-                                                <h5 className='text-xl font-semibold text-gray-700 capitalize  border-b-2 border-slate-600 inline-block'>{place.attraction_name}</h5>
+                    {attractionEmpty === false ?
+                        <div className='flex flex-wrap md:gap-1 lg:gap-8 md:justify-center pb-14 border-b'>
+                            {placeDetailLoader === 0 ? <><Loader size={`w-full mb-1 h-40 block md:inline-block md:w-3/12 md:rounded-xl md:h-40 `} /><Loader size={`w-full h-40 block md:inline-block md:w-3/12 md:rounded-xl md:h-40 `} /></> : <>
+                                {placeDetail?.attractions?.map((place, index) => {
+                                    return (
+                                        <div key={index} className='md:w-60 lg:w-3/12 border rounded-xl  md:hover:shadow-2xl md:hover:scale-105 md:hover:transition-all'>
+                                            <div className='p-5'>
+                                                <div className='mb-5'>
+                                                    <h5 className='text-xl font-semibold text-gray-700 capitalize  border-b-2 border-slate-600 inline-block'>{place.attraction_name}</h5>
 
-                                            </div>
-                                            <img src='/imghome.webp' className=' rounded-md w-full h-36'></img>
-                                            <p className='text-gray-500 tracking-wide text-sm font-normal pt-5'>{place.attraction_description}</p>
-                                        </div>
-                                    </div>
-                                );
-                            })}
-                        </>}
-
-                    </div>
-
-
-                    {/* -----------------------------------------------------------------------------------------------------------          */}
-                    {/* just commented because this code contains the two sections first things to do and attractions */}
-                    {/* <div className='lg:w-6/12'><h2 className='font-medium text-xl text-slate-600  py-5 text-center'>Things To Do</h2></div> */}
-                    {/* <div className='lg:w-6/12 border'>
-                        <h2 className='font-medium text-xl text-slate-600 py-5 text-center'>Attractions</h2>
-                        <div className='flex flex-wrap'>
-                            {placeDetail?.attractions?.map((place, index) => {
-                                return (
-                                    <div className='w-6/12 border rounded-xl  md:hover:shadow-2xl md:hover:scale-105 md:hover:transition-all'>
-                                        <div className='pb-8'>
-                                            <div className='p-8'>
-                                                <h5 className='text-xl font-semibold text-gray-700 mt-5 mb-2 capitalize'>{place.attraction_name}</h5>
-                                                <img src='/dalLake.jpg' className='h-36'></img>
-                                                <p className='text-gray-500 tracking-wide font-normal'>{place.attraction_description}</p>
+                                                </div>
+                                                <img src='/imghome.webp' className=' rounded-md w-full h-36'></img>
+                                                <p className='text-gray-500 tracking-wide text-sm font-normal pt-5'>{place.attraction_description}</p>
                                             </div>
                                         </div>
-                                    </div>
-                                );
-                            })}
+                                    );
+                                })}
+                            </>}
+
+                        </div> :
+                        <div className='flex flex-wrap pb-14 lg:h-48  justify-center  border-b'>
+                            <h1 className='lg:my-auto text-base  md:text-lg text-slate-500'>No Attractions Found !!!</h1>
                         </div>
-                    </div> */}
-                    {/* -------------------------------------------------------------------------------------------- */}
+                    }
 
                 </div>
 
                 {/* hotels div */}
                 <div className='w-full lg:w-8/12'>
-                    <div className='py-5 text-center '>
+                    <div className='py-10 text-center '>
                         <h2 className='font-bold text-2xl lg:text-2xl  border-b-2 border-slate-600 inline-block'>Hotels</h2>
                     </div>
                     {empty === false ?
@@ -583,8 +420,8 @@ function place() {
                             </>}
 
                         </div> :
-                        <div className='md:flex md:flex-wrap md:gap-2 md:py-10 lg:gap-5 md:justify-center text-xl '>
-                            <h1 >No Registered Property Found !!!</h1>
+                        <div className='flex flex-wrap pb-14 lg:h-48 justify-center  border-b'>
+                            <h1 className='lg:my-auto text-base md:text-xl text-slate-500'>No Registered Property Found !!!</h1>
                         </div>}
                 </div>
 

@@ -1,13 +1,16 @@
 import React from 'react'
 import Header from '../Header';
 
-function Home() {
+function Home({menu, setMenu}) {
   return (
     <section className='h-screen lg:h-screen bg-gradient-to-r from-blue-100 to-rose-100 border-b-2'>
 
-      <Header />
+      <Header 
+        menu={menu}
+        setMenu={setMenu}
+      />
       
-      <section>
+      <section className=''>
         <div className='lg:flex lg:flex-wrap rounded justify-between'>
 
           {/* image only visible for lg screen */}
@@ -15,7 +18,7 @@ function Home() {
             <img src='/winter1.jpg' className='home-img h-96 lg:rounded-3xl'></img>
           </div>
 
-          <div className='py-52 md:py-96 lg:my-auto lg:py-0 lg:w-6/12  z-10'>
+          <div className='py-52 md:py-96 md:my-auto lg:my-auto lg:py-0 lg:w-6/12 z-10'>
             <div className='px-5 md:px-14'>
               <div className="text-center">
                 <h1 className='text-3xl lg:text-4xl font-semibold pb-10' style={{ color: '#2912d3' }}>Finding the Ideal Property in Kashmir is Simple</h1>
