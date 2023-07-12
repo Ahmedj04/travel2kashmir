@@ -41,7 +41,7 @@ function Home({ menu, setMenu }) {
         {`
         @media  (max-width:1020px) {
                     .home-content {
-                        height:92vh
+                        height:90vh
                     }
                 }   
                 @media (min-width: 1020px) and (max-width:1280px) {
