@@ -16,6 +16,8 @@ import PropertyCard from '@/components/T2K/Cards/PropertyCard';
 import Footer from '@/components/T2K/Footer';
 import BookingForm from '@/components/T2K/utils/BookingForm';
 import Loader from '@/components/T2K/Loaders/Loader';
+import MenuSM from '@/components/T2K/MenuSM';
+
 
 
 function place() {
@@ -51,6 +53,10 @@ function place() {
     const router = useRouter();
     const { query } = router;
 
+    // set menu for small screen
+    const [menu, setMenu] = useState(false);
+
+
     useEffect(() => {
         let place_prop = localStorage.getItem("place")
         setPlace(JSON.parse(place_prop));
@@ -79,11 +85,11 @@ function place() {
                 "x-hasura-admin-secret": process.env.NEXT_PUBLIC_PASS
             }
         }).then((response) => {
-            
+
             setPlaceDetail(response.data.places[0])
             manageCat(response.data.places[0]?.categories)
             setPlaceDetailLoader(1)
-            response.data.places[0]?.attractions.length===0?setAttractionEmpty(true):setAttractionEmpty(false)
+            response.data.places[0]?.attractions.length === 0 ? setAttractionEmpty(true) : setAttractionEmpty(false)
             console.log(response.data.places[0])
         })
             .catch((error) => {
@@ -190,7 +196,11 @@ function place() {
     return (
         <main>
 
-            <Header bgColor='white' />
+            <Header
+                bgColor='white'
+                menu={menu}
+                setMenu={setMenu}
+            />
 
             <div className='px-3 h-full '>
                 <div className='my-8 flex items-center'>
@@ -208,16 +218,9 @@ function place() {
 
                         </div>
                     </div>
-
-                    {/* weather for place */}
-                    {/* <div className='flex justify-end items-center lg:flex-row md:flex-row flex-col w-6/12  lg:ml-auto lg:pr-4'>
-                        <img className='inline-block h-20' src={imageURL}></img>
-                        <span className='text-lg font-medium'>{weatherTemperature}°C</span>
-                    </div> */}
-
                 </div>
 
-                <div className='flex mb-10'>
+                <div className='flex flex-col lg:flex-row mb-10'>
                     <div className='w-full lg:w-8/12'>
                         <div>
                             <Swiper
@@ -258,13 +261,13 @@ function place() {
                     </div>
 
                     {/* for now hidden for sm and md screen */}
-                    <div className='hidden lg:block lg:w-4/12'>
-                        <div className='ml-9 py-6 border rounded-lg shadow-lg'>
+                    <div className='mt-10 lg:mt-0 lg:block lg:w-4/12'>
+                        <div className='lg:ml-9 py-5 border rounded-lg shadow-lg'>
                             <div className='flex pb-2'>
-                                <div className='pl-6'>
-                                    <h3 className='lg:text-2xl flex leading-none  font-bold my-auto border-b-2 border-slate-600 inline-block'>Seasons</h3>
+                                <div className='pl-6 my-auto'>
+                                    <h3 className='text-xl lg:text-2xl leading-none font-bold my-auto border-b-2 border-slate-600 inline-block'>Seasons</h3>
                                 </div>
-                                <div className='flex justify-end items-center lg:flex-row md:flex-row flex-col w-6/12  lg:ml-auto lg:pr-4'>
+                                <div className='flex justify-end items-center w-6/12  ml-auto pr-4'>
                                     {weatherDetailLoader === 0 ? <Loader size={`w-8 h-7`} /> : <img className='inline-block h-12' src={imageURL}></img>}
                                     {weatherDetailLoader === 0 ? <Loader size={`w-8 h-7`} /> : <span className='text-lg font-medium text-sm'>{weatherTemperature}°C</span>}
 
@@ -291,7 +294,7 @@ function place() {
 
                             <div>
                                 <div className=' pl-6 pt-6'>
-                                    <h3 className='lg:text-2xl font-bold border-b-2 border-slate-600 inline-block'>Languages</h3>
+                                    <h3 className='text-xl lg:text-2xl font-bold border-b-2 border-slate-600 inline-block'>Languages</h3>
                                 </div>
                                 <div className='px-6 mt-4 flex'>
                                     {placeDetailLoader === 0 ? <><Loader size={`w-20 h-8  rounded-3xl`} /><Loader size={`w-20 h-8 ml-1 rounded-3xl`} /><Loader size={`w-20 h-8 ml-1 rounded-3xl`} /></> : <>
@@ -309,15 +312,13 @@ function place() {
 
                             <div>
                                 <div className='pl-6 pt-6'>
-                                    <h3 className='lg:text-2xl font-bold border-b-2 border-slate-600 inline-block'>More about place</h3>
+                                    <h3 className='text-xl lg:text-2xl font-bold border-b-2 border-slate-600 inline-block'>More about place</h3>
                                 </div>
                                 <div className='px-6 mt-4 flex flex-wrap gap-3'>
                                     {placeDetailLoader === 0 ? <><Loader size={`w-5/12 h-16  rounded-xl`} /><Loader size={`w-5/12 h-16  rounded-xl`} /></> : <>
-                                        <p className='bg-slate-200 w-5/12 text-center rounded-xl  text-slate-500 py-2 px-2 mx-1  text-sm'>Distance form Airport:- {placeDetail?.airport_distance}km</p>
-                                        <p className='bg-slate-200 w-5/12 text-center rounded-xl  text-slate-500 py-2 px-2 mx-1  text-sm'>Best time to visit:- {placeDetail?.best_time_to_visit}</p>
-                                        <p className='bg-slate-200 w-5/12 text-center rounded-xl  text-slate-500 py-2 px-2 mx-1  text-sm'><span className='text-left'>Latitude:- {placeDetail?.latitude}°</span><br /><span>Longitude:- {placeDetail?.longitude}°</span></p>
-
-
+                                        <p className='bg-slate-200 my-auto md:w-3/12 lg:w-5/12 text-center rounded-xl  text-slate-500 py-2 px-2 mx-1  text-sm'>Distance form Airport:- {placeDetail?.airport_distance}km</p>
+                                        <p className='bg-slate-200 my-auto md:w-3/12 lg:w-5/12 text-center rounded-xl  text-slate-500 py-2 px-2 mx-1  text-sm'>Best time to visit:- {placeDetail?.best_time_to_visit}</p>
+                                        <p className='bg-slate-200 my-auto md:w-3/12 lg:w-5/12 text-center rounded-xl  text-slate-500 py-2 px-2 mx-1  text-sm'><span className='text-left'>Latitude:- {placeDetail?.latitude}°</span><br /><span>Longitude:- {placeDetail?.longitude}°</span></p>
                                     </>}
 
                                 </div>
@@ -428,6 +429,10 @@ function place() {
             </div>
 
             <Footer />
+
+             {/*-------------------- menu bar for small and medium screen----------- */}
+
+             {menu === true ? <MenuSM bgColor={`bg-slate-100`}/> : <></>}
 
 
         </main>

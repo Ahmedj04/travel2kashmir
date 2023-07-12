@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import MenuIcon from '@mui/icons-material/Menu';
+import CloseIcon from '@mui/icons-material/Close';
 import Router from 'next/router';
 import axios from 'axios';
 
@@ -38,7 +39,7 @@ function Header({bgColor='bg-gradient-to-r from-blue-100 to-rose-100', menu, set
         {/* <i className='lg:hidden'><AccountCircleIcon fontSize='large' /></i> */}
         <img src='/t2k.png' className='h-14 lg:hidden'></img>
         <h2 className='lg:hidden font-medium text-xl ' style={{ color: '#2912d3' }}>Travel2Kashmir</h2>
-        <i className='lg:hidden' onClick={() => setMenu(!menu) }><MenuIcon fontSize='large' /></i>
+        {menu === true ? <i className='lg:hidden' onClick={() => setMenu(!menu) }><CloseIcon fontSize='large' /></i> :<i className='lg:hidden' onClick={() => setMenu(!menu) }><MenuIcon fontSize='large' /></i>}
 
         {/* desktop view */}
         <div className='hidden lg:flex cursor-pointer'>
@@ -47,12 +48,12 @@ function Header({bgColor='bg-gradient-to-r from-blue-100 to-rose-100', menu, set
         
         <ul className='hidden lg:mr-20 lg:justify-end lg:block lg:flex lg:gap-10 lg:my-auto lg:ml-auto'>
 
-          <li className='  font-medium text-gray-700 hover:text-blue-600 cursor-pointer'><a href='/'>Home</a></li>
-
-          <li className=' font-medium text-gray-700 hover:text-blue-600 cursor-pointer'><a href='/aboutus'>About us</a></li>
-          <li className='font-medium text-gray-700 hover:text-blue-600  cursor-pointer' onClick={()=>{Router.push(`${window.location.origin}/#location`)}}>Properties</li>
-          <li className='font-medium text-gray-700 hover:text-blue-600 cursor-pointer'><span onClick={() => document.getElementById('sublist').className === 'hidden' ?
-            document.getElementById('sublist').className = 'block absolute bg-white py-3 px-4' : document.getElementById('sublist').className = 'hidden'}>Places</span>
+          <li className='font-medium text-gray-700 hover:text-blue-600 cursor-pointer'><a href='/'>Home</a></li>
+          <li className='font-medium text-gray-700 hover:text-blue-600 cursor-pointer'><a href='/aboutus'>About us</a></li>
+          <li className='font-medium text-gray-700 hover:text-blue-600 cursor-pointer' onClick={()=>{Router.push(`${window.location.origin}/#location`)}}>Properties</li>
+          <li className='font-medium text-gray-700 hover:text-blue-600 cursor-pointer' onClick={() => document.getElementById('sublist').className === 'hidden' ?
+            document.getElementById('sublist').className = 'block absolute bg-slate-100 py-4 px-5 w-36 text-left rounded-b-3xl' : document.getElementById('sublist').className = 'hidden'}>
+          <span >Places</span>
             <ul id='sublist' className='hidden'>
               {places.map((place,index) => {
                 return (
@@ -66,15 +67,11 @@ function Header({bgColor='bg-gradient-to-r from-blue-100 to-rose-100', menu, set
                       Router.push(`${window.location.origin}/place?p=${place.name}`)
                     }
                   }
-                  className='border-b border-black capitalize font-medium pt-2 text-gray-700 hover:text-blue-600 hover:text-blue-800 cursor-pointer'>{place?.name}</li>
-
+                  className='pb-2 border-b border-black capitalize font-medium pt-2 text-gray-700 hover:text-blue-600 hover:text-blue-800 cursor-pointer'>{place?.name}</li>
                 )
               })}
             </ul>
-
-
           </li>
-
         </ul>
       </div>
     </section>
