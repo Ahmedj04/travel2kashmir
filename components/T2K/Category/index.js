@@ -74,7 +74,7 @@ function Category() {
                             {categoryLoader === 0 ?
                                 <> <Loader size={`w-3/12 h-40 py-3 mb-5 `} /><Loader size={`w-3/12 h-40 py-3 mb-5 `} /><Loader size={`w-3/12 h-40 py-3 mb-5 `} /></>
                                 : <>{allPropertyTypes.map((item, index) =>
-                                    <div className='md:w-5/12  lg:w-3/12'>
+                                    <div className='mb-3 md:mb-0 md:w-5/12  lg:w-3/12'>
                                         <CategoryCard
                                             key={index}
                                             propertyIcon={icons[item?.property_type]}

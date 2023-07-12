@@ -342,11 +342,11 @@ function place() {
                         <h2 className='font-bold text-2xl lg:text-2xl  border-b-2 border-slate-600 inline-block'>Attractions</h2>
                     </div>
                     {attractionEmpty === false ?
-                        <div className='flex flex-wrap md:gap-1 lg:gap-8 md:justify-center pb-14 border-b'>
+                        <div className='flex flex-wrap md:gap-2 lg:gap-8 md:justify-center pb-14 border-b'>
                             {placeDetailLoader === 0 ? <><Loader size={`w-full mb-1 h-40 block md:inline-block md:w-3/12 md:rounded-xl md:h-40 `} /><Loader size={`w-full h-40 block md:inline-block md:w-3/12 md:rounded-xl md:h-40 `} /></> : <>
                                 {placeDetail?.attractions?.map((place, index) => {
                                     return (
-                                        <div key={index} className='md:w-60 lg:w-3/12 border rounded-xl  md:hover:shadow-2xl md:hover:scale-105 md:hover:transition-all'>
+                                        <div key={index} className='mb-3 md:mb-0 md:w-60 lg:w-3/12 border rounded-xl shadow  md:hover:shadow-2xl md:hover:scale-105 md:hover:transition-all'>
                                             <div className='p-5'>
                                                 <div className='mb-5'>
                                                     <h5 className='text-xl font-semibold text-gray-700 capitalize  border-b-2 border-slate-600 inline-block'>{place.attraction_name}</h5>
@@ -411,7 +411,7 @@ function place() {
                                         <Carousel.Item key={idx}>
                                             { }
 
-                                            <PropertyCard bgcolor={"bg-white z-50"} hotel={hotel} price={hotelRoomPrice.filter(price => price.property_id === hotel.property_id)[0]} />
+                                            <PropertyCard bgcolor={"bg-white z-50 shadow-lg"} hotel={hotel} price={hotelRoomPrice.filter(price => price.property_id === hotel.property_id)[0]} />
 
                                         </Carousel.Item>
 

@@ -10,7 +10,6 @@ function Hotel() {
 
   const [menu, setMenu] = useState(false);
 
-
   return (
     <main>
 

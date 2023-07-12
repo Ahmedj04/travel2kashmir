@@ -35,8 +35,8 @@ function MenuSM({ bgColor }) {
             <div className={`${bgColor} z-50 absolute inset-0 w-9/12 mx-auto h-44 mt-20 md:h-56 opacity-100 rounded-b-3xl`}>
                 <div className='text-center text-slate-800 pt-10 px-10 md:pt-12'>
                     <ul className='text-left'>
-                        <li className=' font-medium text-gray-700 hover:text-blue-600 cursor-pointer pb-2'><a href='/'>Home</a></li>
-                        <li className='font-medium text-gray-700 hover:text-blue-600 cursor-pointer pb-2'><a href='/aboutus'>About us</a></li>
+                        <li className=' font-medium text-gray-700 hover:text-blue-600 cursor-pointer pb-2' onClick={()=>{ Router.push(`${window.location.origin}/`) }}>Home</li>
+                        <li className='font-medium text-gray-700 hover:text-blue-600 cursor-pointer pb-2' onClick={()=>{Router.push(`${window.location.origin}/aboutus`)}}>About us</li>
                         <li className='font-medium text-gray-700 hover:text-blue-600 cursor-pointer pb-2' onClick={() => { Router.push(`${window.location.origin}/#location`) }}>Properties</li>
                         <li className='font-medium text-gray-700 hover:text-blue-600 cursor-pointer flex justify-between'
                             onClick={() => setSubMenu(subMenu === 0 ? 1 : 0)}

@@ -10,7 +10,7 @@ function Card({ propertyIcon, propertyType, propertyDescription }) {
   const router = useRouter()
 
   return (
-    <div className='border rounded-xl md:h-full  md:hover:shadow-2xl md:hover:scale-105 md:hover:transition-all'>
+    <div className='border shadow rounded-xl md:h-full  md:hover:shadow-2xl md:hover:scale-105 md:hover:transition-all'>
       <div className='pb-8'>
         <div className='p-8'>
           <span>{propertyIcon}</span>
