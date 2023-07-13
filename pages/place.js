@@ -17,6 +17,8 @@ import Footer from '@/components/T2K/Footer';
 import BookingForm from '@/components/T2K/utils/BookingForm';
 import Loader from '@/components/T2K/Loaders/Loader';
 import MenuSM from '@/components/T2K/MenuSM';
+import Modal from '@/components/T2K/Modals/Modal';
+// import srinagar from "../components/T2K/Data/Srinagar.json"
 
 
 
@@ -46,7 +48,6 @@ function place() {
     const [cat, setCat] = useState([])
 
     const weatherTemperature = location?.main?.temp;
-    // const weatherDescription = location?.weather?.[0]?.description;
     const weatherIcon = location?.weather?.[0]?.icon;
     const imageURL = "http://openweathermap.org/img/wn/" + weatherIcon + "@2x.png";
 
@@ -55,6 +56,11 @@ function place() {
 
     // set menu for small screen
     const [menu, setMenu] = useState(false);
+
+    // set bookingmodel for small and medium screen
+    const [showModalBooking, setShowModalBooking] = useState(0);
+
+
 
 
     useEffect(() => {
@@ -85,7 +91,7 @@ function place() {
                 "x-hasura-admin-secret": process.env.NEXT_PUBLIC_PASS
             }
         }).then((response) => {
-
+            console.log(JSON.stringify(response.data.places[0]))
             setPlaceDetail(response.data.places[0])
             manageCat(response.data.places[0]?.categories)
             setPlaceDetailLoader(1)
@@ -105,6 +111,7 @@ function place() {
                 "x-hasura-admin-secret": process.env.NEXT_PUBLIC_PASS
             }
         }).then((response) => {
+            console.log(JSON.stringify(response.data.place_seasons))
             setSeasonDetail(response.data.place_seasons)
             setSeasonLoader(1);
             console.log(response.data.place_seasons)
@@ -201,7 +208,6 @@ function place() {
                 menu={menu}
                 setMenu={setMenu}
             />
-
             <div className='px-3 h-full '>
                 <div className='my-8 flex items-center'>
                     <div className='w-full md:w-6/12'>
@@ -260,7 +266,6 @@ function place() {
                         </div>
                     </div>
 
-                    {/* for now hidden for sm and md screen */}
                     <div className='mt-10 lg:mt-0 lg:block lg:w-4/12'>
                         <div className='lg:ml-9 py-5 border rounded-lg shadow-lg'>
                             <div className='flex pb-2'>
@@ -296,7 +301,7 @@ function place() {
                                 <div className=' pl-6 pt-6'>
                                     <h3 className='text-xl lg:text-2xl font-bold border-b-2 border-slate-600 inline-block'>Languages</h3>
                                 </div>
-                                <div className='px-6 mt-4 flex'>
+                                <div className='px-6 mt-4 flex flex-wrap gap-1'>
                                     {placeDetailLoader === 0 ? <><Loader size={`w-20 h-8  rounded-3xl`} /><Loader size={`w-20 h-8 ml-1 rounded-3xl`} /><Loader size={`w-20 h-8 ml-1 rounded-3xl`} /></> : <>
                                         {placeDetail?.languages_spoken?.map((place, index) => {
                                             return (
@@ -428,13 +433,24 @@ function place() {
 
             </div>
 
+            <button className='block z-10 mx-auto text-center text-white font-medium w-5/12 sticky bottom-2 md:bottom-5 rounded-2xl py-5 bg-blue-700/90 lg:hidden' onClick={() => { setShowModalBooking(1) }}>Find Hotel</button>
+            
             <Footer />
 
-             {/*-------------------- menu bar for small and medium screen----------- */}
+           
 
-             {menu === true ? <MenuSM bgColor={`bg-slate-100`}/> : <></>}
+            {/*-------------------- menu bar for small and medium screen----------- */}
+            {menu === true ? <MenuSM bgColor={`bg-slate-100`} /> : <></>}
 
+            {/* ---------------booking form for small and medium screen--------------- */}
+            {showModalBooking === 1 ?
+                <Modal
+                    description={<BookingForm />}
+                    setShowModal={(e) => setShowModalBooking(e)}
+                />
+            :<></>}
 
+                              
         </main>
     )
 }

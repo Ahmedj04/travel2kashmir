@@ -15,10 +15,8 @@ function BookingForm({ color }) {
     })
     return (
         <div className='mx-auto py-6 '>
-            <div  >
-                <h3
-                    className={` text-4xl flex leading-none pl-6 lg:py-0 pt-6 my-4 font-bold`}
-                >
+            <div>
+                <h3 className={` text-4xl flex leading-none pl-6 lg:py-0 pt-6 my-4 font-bold`}>
                     Booking Form 
                 </h3>
 

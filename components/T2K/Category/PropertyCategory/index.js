@@ -135,7 +135,7 @@ function PropertyCategory() {
                             </div>
                         </div>
                     </div>
-                </section >
+                </section>
             </>}
         </section>
     )
