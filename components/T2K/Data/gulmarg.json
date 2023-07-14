@@ -1,0 +1,105 @@
+{
+    "airport_distance": 35,
+    "best_time_to_visit": "December to February",
+    "description": "Gulmarg is a town, a hill station, and a popular skiing destination in Jammu and Kashmir.",
+    "latitude": "34.0484",
+    "longitude": "74.3805",
+    "name": "Gulmarg",
+    "places_id": "P008",
+    "languages_spoken": [
+        {
+            "language": "Kashmiri"
+        },
+        {
+            "language": "Urdu"
+        },
+        {
+            "language": "English"
+        }
+    ],
+    "categories": [
+        {
+            "cat_name": "Adventure"
+        },
+        {
+            "cat_name": "Sports"
+        },
+        {
+            "cat_name": "Trekking"
+        }
+
+    ],
+    "attractions": [
+        {
+            "attraction_name": "Gulmarg Gondola",
+            "attraction_image_link": "https://res.cloudinary.com/dvczoayyw/image/upload/v1689319029/gulmarg_attraction_gondola_cmtunc.jpg ",
+            "attraction_description": " A thrilling cable car system in Kashmir's Gulmarg town, offering breathtaking views of Himalayan peaks and year-round adventures. Experience the untouched beauty of snow-capped mountains and lush meadows in a memorable ride."
+        },
+        {
+            "attraction_name": "Gulmarg Golf Course",
+            "attraction_image_link": "https://res.cloudinary.com/dvczoayyw/image/upload/v1689319026/gulmarg_attraction_golfCourse_rqlvyd.jpg ",
+            "attraction_description": "A scenic paradise nestled in the Himalayas, offering golf enthusiasts breathtaking views and a challenging 18-hole course. Immerse yourself in the natural beauty while enjoying a unique golfing experience in Kashmir."
+        }
+    ],
+    "image": [
+        {
+            "image_link": "https://res.cloudinary.com/dvczoayyw/image/upload/v1689316020/gulmarg1_zodofs.jpg "
+        },
+        {
+            "image_link": "https://res.cloudinary.com/dvczoayyw/image/upload/v1689316011/gulmarg2_tuillu.jpg "
+        },
+        {
+            "image_link": "https://res.cloudinary.com/dvczoayyw/image/upload/v1689316020/gulmarg1_zodofs.jpg "
+        } 
+    ],
+    "seasons": [
+        {
+            "max_temp": 15,
+            "min_temp": -5,
+            "period": "March to May",
+            "season_id": "season0018",
+            "season_name": "Spring",
+            "unit": "°C",
+            "place": {
+                "name": "Gulmarg",
+                "places_id": "P008"
+            }
+        },
+        {
+            "max_temp": 25,
+            "min_temp": 5,
+            "period": "June to August",
+            "season_id": "season0019",
+            "season_name": "Summer",
+            "unit": "°C",
+            "place": {
+                "name": "Gulmarg",
+                "places_id": "P008"
+            }
+        },
+        {
+            "max_temp": 15,
+            "min_temp": -5,
+            "period": "September to November",
+            "season_id": "season0020",
+            "season_name": "Autumn",
+            "unit": "°C",
+            "place": {
+                "name": "Gulmarg",
+                "places_id": "P008"
+            }
+        },
+        {
+            "max_temp": 0,
+            "min_temp": -20,
+            "period": "December to February",
+            "season_id": "season0021",
+            "season_name": "Winter",
+            "unit": "°C",
+            "place": {
+                "name": "Gulmarg",
+                "places_id": "P008"
+            }
+        }
+    ]
+}

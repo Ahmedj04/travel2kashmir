@@ -1,0 +1,103 @@
+{
+  "airport_distance": 51,
+  "best_time_to_visit": "March & November",
+  "description": "Pahalgam is a town and a notified area committee in Anantnag district of the Indian union territory of Jammu and Kashmir.",
+  "latitude": "34.0161",
+  "longitude": "75.3150",
+  "name": "Pahlgam",
+  "places_id": "P009",
+  "languages_spoken": [
+    {
+      "language": "Kashmiri"
+    },
+    {
+      "language": "Urdu"
+    },
+    {
+      "language": "English"
+    }
+  ],
+  "categories": [
+    {
+      "cat_name": "Adventure"
+    },
+    {
+      "cat_name": "Trekking"
+    }
+  ],
+  "attractions": [
+    {
+      "attraction_name": "Betaab Valley",
+      "attraction_image_link": " https://res.cloudinary.com/dvczoayyw/image/upload/v1689326471/pahlgham_attraction_3_tyik6i.jpg ",
+      "attraction_description": "  A picturesque haven nestled in the Himalayas, known for its lush meadows, gushing rivers, and breathtaking vistas. Explore the enchanting beauty of nature and indulge in outdoor activities in this serene valley."
+    },
+    {
+      "attraction_name": "Aru",
+      "attraction_image_link": "https://res.cloudinary.com/dvczoayyw/image/upload/v1689326472/pahlgham_attraction_2_chwxwj.jpg  ",
+      "attraction_description": "A tranquil retreat embraced by snow-capped peaks, offering a serene ambiance and picturesque landscapes. Immerse yourself in the beauty of pristine meadows, gurgling streams, and charming wooden huts for a memorable escape."
+    },
+    {
+      "attraction_name": "Sheshnag",
+      "attraction_image_link": "https://res.cloudinary.com/dvczoayyw/image/upload/v1689326256/pahlgham_attraction_1_dbzvst.jpg",
+      "attraction_description": "A mystical alpine lake nestled amidst towering mountains, captivating visitors with its crystal-clear waters and serene surroundings. Explore the ethereal beauty of Sheshnag, where nature's tranquility reigns supreme."
+    }
+  ],
+  "image": [
+    {
+      "image_link": "https://res.cloudinary.com/dvczoayyw/image/upload/v1689315774/pexels-tayyab-khan-2907578_nqvq8e.jpg"
+    },
+    {
+      "image_link": "https://res.cloudinary.com/dvczoayyw/image/upload/v1689326643/pahalgam2_wikgow.jpg "
+    }
+  ],
+  "seasons": [
+    {
+      "max_temp": 20,
+      "min_temp": 2,
+      "period": "March to May",
+      "season_id": "season0022",
+      "season_name": "Spring",
+      "unit": "°C",
+      "place": {
+        "name": "Pahlgam",
+        "places_id": "P009"
+      }
+    },
+    {
+      "max_temp": 30,
+      "min_temp": 10,
+      "period": "June to August",
+      "season_id": "season0023",
+      "season_name": "Summer",
+      "unit": "°C",
+      "place": {
+        "name": "Pahlgam",
+        "places_id": "P009"
+      }
+    },
+    {
+      "max_temp": 20,
+      "min_temp": 2,
+      "period": "September to November",
+      "season_id": "season0024",
+      "season_name": "Autumn",
+      "unit": "°C",
+      "place": {
+        "name": "Pahlgam",
+        "places_id": "P009"
+      }
+    },
+    {
+      "max_temp": 10,
+      "min_temp": -5,
+      "period": "December to February",
+      "season_id": "season0025",
+      "season_name": "Winter",
+      "unit": "°C",
+      "place": {
+        "name": "Pahlgam",
+        "places_id": "P009"
+      }
+    }
+  ]
+}
