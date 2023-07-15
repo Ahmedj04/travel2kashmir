@@ -18,6 +18,7 @@ import BookingForm from '@/components/T2K/utils/BookingForm';
 import Loader from '@/components/T2K/Loaders/Loader';
 import MenuSM from '@/components/T2K/MenuSM';
 import Modal from '@/components/T2K/Modals/Modal';
+import Data from '../components/T2K/Data';
 // import srinagar from "../components/T2K/Data/Srinagar.json"
 
 
@@ -60,16 +61,13 @@ function place() {
     // set bookingmodel for small and medium screen
     const [showModalBooking, setShowModalBooking] = useState(0);
 
-
-
-
     useEffect(() => {
-        let place_prop = localStorage.getItem("place")
-        setPlace(JSON.parse(place_prop));
-        fetchAllPlaceDetails(JSON.parse(place_prop).places_id)
-        fetchAllSeasonDetails(JSON.parse(place_prop).places_id)
-        getWeather(JSON.parse(place_prop).name);
-        fetchAllProperties(JSON.parse(place_prop).name)
+        let place_name = localStorage.getItem("place")
+        setPlace(place_name);
+        fetchAllPlaceDetails(place_name)
+
+        getWeather(place_name);
+        fetchAllProperties(place_name)
     }, [query])
 
     // getWeather function is used to get the weather from the openweather api.
@@ -84,44 +82,20 @@ function place() {
         })
     }
 
-    function fetchAllPlaceDetails(id) {
-        let url = `/api2/places/${id}`;
-        axios.get(url, {
-            headers: {
-                "x-hasura-admin-secret": process.env.NEXT_PUBLIC_PASS
-            }
-        }).then((response) => {
-            console.log(JSON.stringify(response.data.places[0]))
-            setPlaceDetail(response.data.places[0])
-            manageCat(response.data.places[0]?.categories)
-            setPlaceDetailLoader(1)
-            response.data.places[0]?.attractions.length === 0 ? setAttractionEmpty(true) : setAttractionEmpty(false)
-            console.log(response.data.places[0])
-        })
-            .catch((error) => {
-                setAttractionEmpty(true)
-                console.log(error.message)
-            })
-    }
+    function fetchAllPlaceDetails(name) {
 
-    function fetchAllSeasonDetails(id) {
-        let url = `/api2/seasons/${id}`;
-        axios.get(url, {
-            headers: {
-                "x-hasura-admin-secret": process.env.NEXT_PUBLIC_PASS
-            }
-        }).then((response) => {
-            console.log(JSON.stringify(response.data.place_seasons))
-            setSeasonDetail(response.data.place_seasons)
-            setSeasonLoader(1);
-            console.log(response.data.place_seasons)
-        })
-            .catch((error) => {
-                alert(error.message)
-                console.log(error.message)
-            })
-    }
+        for (let placeName in Data) {
+            if (Data[placeName].name === name) {
+                setPlaceDetail(Data[placeName])
+                setSeasonDetail(Data[placeName].seasons)
+                setPlaceDetailLoader(1)
+                setSeasonLoader(1);
+                manageCat(Data[placeName].categories)
 
+                break
+            }
+        }
+    }
 
     function room_price(all_property) {
         let property_id = all_property.property_id;
@@ -212,7 +186,7 @@ function place() {
                 <div className='my-8 flex items-center'>
                     <div className='w-full md:w-6/12'>
                         {placeDetailLoader === 0 ? <><Loader size={`w-6/12 h-20`} /></> : <>
-                            <p className='text-6xl font-medium text-slate-600  inline-block mr-5 md:mr-10 lg:mr-10'>{place?.name} </p>
+                            <p className='text-6xl font-medium text-slate-600  inline-block mr-5 md:mr-10 lg:mr-10'>{place} </p>
 
                         </>}
                         <div className='flex flex-wrap w-3/4 pt-5'>
@@ -238,20 +212,15 @@ function place() {
 
                                 modules={[Autoplay, Pagination, Navigation]}
                                 className="mySwiper rounded-xl">
-                                <SwiperSlide>
-                                    <img
-                                        className="object-fill w-full h-96"
-                                        src='dalLake.jpg'
-                                        alt="image slide 1"
-                                    />
-                                </SwiperSlide>
-                                <SwiperSlide>
-                                    <img
-                                        className="object-fill w-full h-96"
-                                        src='categoryPic.jpg'
-                                        alt="image slide 1"
-                                    />
-                                </SwiperSlide>
+
+                                {placeDetail?.image?.map((img) => {
+                                    return <SwiperSlide>
+                                        <img
+                                            className="object-fill w-full h-96"
+                                            src={img.image_link}
+                                        />
+                                    </SwiperSlide>
+                                })}
                             </Swiper>
 
                             <div className='mt-10'>
@@ -260,14 +229,14 @@ function place() {
                                         <p className='text-slate-500'>{placeDetail?.description}</p>
                                     </div>
                                 </>}
-
-
                             </div>
                         </div>
                     </div>
 
                     <div className='mt-10 lg:mt-0 lg:block lg:w-4/12'>
                         <div className='lg:ml-9 py-5 border rounded-lg shadow-lg'>
+
+                            {/* Seasons weather details*/}
                             <div className='flex pb-2'>
                                 <div className='pl-6 my-auto'>
                                     <h3 className='text-xl lg:text-2xl leading-none font-bold my-auto border-b-2 border-slate-600 inline-block'>Seasons</h3>
@@ -275,10 +244,10 @@ function place() {
                                 <div className='flex justify-end items-center w-6/12  ml-auto pr-4'>
                                     {weatherDetailLoader === 0 ? <Loader size={`w-8 h-7`} /> : <img className='inline-block h-12' src={imageURL}></img>}
                                     {weatherDetailLoader === 0 ? <Loader size={`w-8 h-7`} /> : <span className='text-lg font-medium text-sm'>{weatherTemperature}°C</span>}
-
-
                                 </div>
                             </div>
+
+                            {/* season period */}
                             <div className='px-6'>
                                 {seasonLoader === 0 ? <> <Loader size={`w-full h-6 mb-1`} /> <Loader size={`w-full h-6 mb-1 `} /><Loader size={`w-full h-6 mb-1 `} /><Loader size={`w-full h-6 mb-1 `} /></> : <>
                                     {seasonDetail?.map((season, index) => {
@@ -294,9 +263,9 @@ function place() {
                                         )
                                     })}
                                 </>}
-
                             </div>
 
+                            {/*languages*/}
                             <div>
                                 <div className=' pl-6 pt-6'>
                                     <h3 className='text-xl lg:text-2xl font-bold border-b-2 border-slate-600 inline-block'>Languages</h3>
@@ -311,10 +280,10 @@ function place() {
                                             );
                                         })}
                                     </>}
-
                                 </div>
                             </div>
 
+                            {/* more about place */}
                             <div>
                                 <div className='pl-6 pt-6'>
                                     <h3 className='text-xl lg:text-2xl font-bold border-b-2 border-slate-600 inline-block'>More about place</h3>
@@ -335,6 +304,7 @@ function place() {
 
                 <hr className='pb-10' />
 
+                {/* booking form */}
                 <div className='hidden lg:block lg:w-4/12 lg:sticky lg:top-0  lg:float-right z-10'>
                     <div className='lg:ml-9 rounded-2xl bg-slate-50 shadow '>
                         <BookingForm />
@@ -357,10 +327,11 @@ function place() {
                                                     <h5 className='text-xl font-semibold text-gray-700 capitalize  border-b-2 border-slate-600 inline-block'>{place.attraction_name}</h5>
 
                                                 </div>
-                                                <img src='/imghome.webp' className=' rounded-md w-full h-36'></img>
+
+                                                <img src={place.attraction_image_link} className=' rounded-md w-full h-36'></img>
                                                 <p className='text-gray-500 tracking-wide text-sm font-normal pt-5'>
-                                                {place.attraction_description}
-                                                
+                                                    {place.attraction_description}
+
                                                 </p>
                                             </div>
                                         </div>
@@ -437,10 +408,10 @@ function place() {
             </div>
 
             <button className='block z-10 mx-auto text-center text-white font-medium w-5/12 sticky bottom-2 md:bottom-5 rounded-2xl py-5 bg-blue-700/90 lg:hidden' onClick={() => { setShowModalBooking(1) }}>Find Hotel</button>
-            
+
             <Footer />
 
-           
+
 
             {/*-------------------- menu bar for small and medium screen----------- */}
             {menu === true ? <MenuSM bgColor={`bg-slate-100`} /> : <></>}
@@ -451,11 +422,11 @@ function place() {
                     description={<BookingForm />}
                     setShowModal={(e) => setShowModalBooking(e)}
                 />
-            :<></>}
+                : <></>}
 
-                              
+
         </main>
     )
 }
 
-export default place
+export default place;
