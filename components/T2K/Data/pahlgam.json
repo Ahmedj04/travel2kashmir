@@ -40,6 +40,21 @@
       "attraction_name": "Sheshnag",
       "attraction_image_link": "https://res.cloudinary.com/dvczoayyw/image/upload/v1689326256/pahlgham_attraction_1_dbzvst.jpg",
       "attraction_description": "A mystical alpine lake nestled amidst towering mountains, captivating visitors with its crystal-clear waters and serene surroundings. Explore the ethereal beauty of Sheshnag, where nature's tranquility reigns supreme."
+    },
+    {
+      "attraction_name": "Tulian Lake",
+      "attraction_image_link": "https://res.cloudinary.com/dvczoayyw/image/upload/v1689403200/pahlgham_attraction_5_tulianLake_m8obfe.jpg ",
+      "attraction_description": "A pristine alpine lake surrounded by snow-capped peaks, captivating visitors with its serene beauty and reflecting the magnificence of the Himalayas."
+    },
+    {
+      "attraction_name": "Amarnath Cave Temple",
+      "attraction_image_link": "https://res.cloudinary.com/dvczoayyw/image/upload/v1689403948/pahlgham_attraction_6_amarnathTemple_tubdg1.jpg ",
+      "attraction_description": "A pristine alpine lake surrounded by snow-capped peaks, captivating visitors with its serene beauty and reflecting the magnificence of the Himalayas."
+    },
+    {
+      "attraction_name": "Mamaleshwar Temple",
+      "attraction_image_link": "https://res.cloudinary.com/dvczoayyw/image/upload/v1689402954/pahlgham_attraction_4_mamaleshwar_temple_d4ltdm.jpg",
+      "attraction_description": " A sacred Hindu temple immersed in tranquility, where devotees seek spiritual solace and admire the architectural beauty."
     }
   ],
   "image": [

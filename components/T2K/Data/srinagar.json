@@ -93,6 +93,12 @@
             "attraction_description": "A beautiful lake surrounded by the majestic Himalayas and known for its scenic beauty and houseboats."
         },
         {
+            "attraction_name": "Hazratbal",
+            "attraction_image_link": "https://res.cloudinary.com/dvczoayyw/image/upload/v1689401177/srinagar_attraction_hazratbal_sjpaim.jpg",
+            "attraction_description": "A revered Islamic shrine on the banks of Dal Lake, known for its exquisite architecture and tranquil setting. Experience spirituality and serenity as you visit this sacred destination in the heart of Srinagar."
+        },
+       
+        {
             "attraction_name": "Shalimar Bagh",
             "attraction_image_link": "https://res.cloudinary.com/dvczoayyw/image/upload/v1689327816/srinagar_attraction_shalimar_bagh_rkdt9t.jpg ",
             "attraction_description": "A Mughal garden built by Emperor Jahangir, known for its terraced lawns, fountains, and flowers."
@@ -101,6 +107,16 @@
             "attraction_name": "Nishat Bagh",
             "attraction_image_link": "https://res.cloudinary.com/dvczoayyw/image/upload/v1689327817/srinagar_attraction_nishat_bagh_q8uxli.jpg ",
             "attraction_description": "Another Mughal garden built by Asif Khan, with beautiful views of the Dal Lake and the Zabarwan Mountains."
+        },
+        {
+            "attraction_name": "Downtown",
+            "attraction_image_link": "https://res.cloudinary.com/dvczoayyw/image/upload/v1689401183/srinagar_attraction_downtown_lv98yj.jpg ",
+            "attraction_description": "The bustling heart of the city, where ancient architecture, vibrant markets, and rich cultural heritage converge. Explore the lively streets, savor local cuisine, and immerse yourself in the vibrant atmosphere of this dynamic neighborhood."
+        },
+        {
+            "attraction_name": "Pari Mahal",
+            "attraction_image_link": "https://res.cloudinary.com/dvczoayyw/image/upload/v1689401174/srinagar_attraction_parimahal_ghvb6e.jpg ",
+            "attraction_description": "A stunning historical monument perched on a hilltop, offering panoramic views of the cityscape and the mesmerizing Dal Lake. Discover the charm of this 'Palace of Fairies' as you explore its terraced gardens and soak in the enchanting beauty of Srinagar."
         }
     ]
 }

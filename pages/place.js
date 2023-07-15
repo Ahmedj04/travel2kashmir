@@ -358,7 +358,10 @@ function place() {
 
                                                 </div>
                                                 <img src='/imghome.webp' className=' rounded-md w-full h-36'></img>
-                                                <p className='text-gray-500 tracking-wide text-sm font-normal pt-5'>{place.attraction_description}</p>
+                                                <p className='text-gray-500 tracking-wide text-sm font-normal pt-5'>
+                                                {place.attraction_description}
+                                                
+                                                </p>
                                             </div>
                                         </div>
                                     );

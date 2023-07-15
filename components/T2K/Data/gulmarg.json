@@ -36,9 +36,19 @@
             "attraction_description": " A thrilling cable car system in Kashmir's Gulmarg town, offering breathtaking views of Himalayan peaks and year-round adventures. Experience the untouched beauty of snow-capped mountains and lush meadows in a memorable ride."
         },
         {
+            "attraction_name": "Afarwat",
+            "attraction_image_link": "https://res.cloudinary.com/dvczoayyw/image/upload/v1689402070/gulmarg_attraction_afarwat_gf20vt.jpg ",
+            "attraction_description": "A breathtaking alpine destination offering panoramic vistas of snow-capped peaks and an exhilarating playground for skiing, snowboarding, and other winter sports enthusiasts. Immerse yourself in the natural beauty and thrill of Afarwat, a paradise for mountain adventurers."
+        },
+        {
             "attraction_name": "Gulmarg Golf Course",
             "attraction_image_link": "https://res.cloudinary.com/dvczoayyw/image/upload/v1689319026/gulmarg_attraction_golfCourse_rqlvyd.jpg ",
             "attraction_description": "A scenic paradise nestled in the Himalayas, offering golf enthusiasts breathtaking views and a challenging 18-hole course. Immerse yourself in the natural beauty while enjoying a unique golfing experience in Kashmir."
+        },
+        {
+            "attraction_name": "Khilanmarg",
+            "attraction_image_link": "https://res.cloudinary.com/dvczoayyw/image/upload/v1689402111/gulmarg_attraction_khilanmarg_momqhm.jpg ",
+            "attraction_description": " An idyllic meadow nestled amidst majestic mountains, offering a serene retreat and captivating views."
         }
     ],
     "image": [
