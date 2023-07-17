@@ -1,34 +1,10 @@
-import React, { useState, useEffect } from 'react'
-import axios from 'axios';
+import React, { useState } from 'react'
 import Router from 'next/router';
-
-
+import Data from '../Data'
 
 function MenuSM({ bgColor }) {
 
-    const [places, setPlaces] = useState([]);
-    const [subMenu,setSubMenu]=useState(0)
-
-    useEffect(() => {
-        fetchAllPlaces()
-    }, [])
-
-    function fetchAllPlaces() {
-        let url = `/api2/places`;
-        axios.get(url, {
-            headers: {
-                "x-hasura-admin-secret": process.env.NEXT_PUBLIC_PASS
-            }
-        }).then((response) => {
-            setPlaces(response.data.places)
-            console.log("PLACES:" + JSON.stringify(response.data.places))
-        })
-            .catch((error) => {
-                alert(error.message)
-                console.log(error.message)
-            })
-    }
-
+    const [subMenu,setSubMenu]=useState(0);
 
     return (
         <div>
@@ -45,19 +21,19 @@ function MenuSM({ bgColor }) {
                             <span> {subMenu === 0 ? '+':'-'}</span>
                            {subMenu === 0 ? <></> : 
                            <ul id='submenu' className={`block absolute top-44 ${bgColor} text-slate-800 py-4 px-5 w-40 text-left rounded-b-3xl`}>
-                                {places.map((place, index) => {
+                                {Data.map((place, index) => {
                                     return (
-                                        <li key={index}
-                                            onClick={
-                                                //local storage mei save krna hai place{name ,placeid}
-                                                // redirect to place page
-                                                () => {
-                                                    localStorage.setItem("place", JSON.stringify(place)),
-                                                        console.log("pushing")
-                                                    Router.push(`${window.location.origin}/place?p=${place.name}`)
-                                                }
-                                            }
-                                            className='pb-2 border-b border-black capitalize font-medium pt-2 text-gray-700 hover:text-blue-600 hover:text-blue-800 cursor-pointer'>{place?.name}</li>
+                                        <li key={index} 
+                  onClick={
+                    //local storage mei save krna hai place{name ,placeid}
+                    // redirect to place page
+                    ()=>{
+                      localStorage.setItem("place",place.name),
+                      console.log("pushing")
+                      Router.push(`${window.location.origin}/place?p=${place.name}`)
+                    }
+                  }
+                  className='pb-2 border-b border-black capitalize font-medium pt-2 text-gray-700 hover:text-blue-600 hover:text-blue-800 cursor-pointer'>{place?.name}</li>
                                     )
                                 })}
                             </ul>}

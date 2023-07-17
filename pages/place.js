@@ -78,7 +78,7 @@ function place() {
             setLocation(response.data)
             setWeatherDetailLoader(1)
         }).catch((err) => {
-            alert(JSON.stringify(err))
+            // alert(JSON.stringify(err))
         })
     }
 
