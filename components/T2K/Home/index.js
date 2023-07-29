@@ -25,7 +25,6 @@ function Home({ menu, setMenu }) {
                 <p className='text-base md:text-2xl lg:text-lg text-gray-500 tracking-wide'>With our convenient search, browse extensive real estate listings by category. Locate the ideal partner!</p>
               </div>
             </div>
-
           </div>
 
           {/* image only visible for lg screen */}

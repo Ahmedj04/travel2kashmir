@@ -19,7 +19,6 @@ import Loader from '@/components/T2K/Loaders/Loader';
 import MenuSM from '@/components/T2K/MenuSM';
 import Modal from '@/components/T2K/Modals/Modal';
 import Data from '../components/T2K/Data';
-// import srinagar from "../components/T2K/Data/Srinagar.json"
 
 
 
